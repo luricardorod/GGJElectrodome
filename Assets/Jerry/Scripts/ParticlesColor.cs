@@ -46,12 +46,6 @@ public class ParticlesColor : MonoBehaviour {
 
 	void Update() {
 
-		if (Input.GetButtonDown ("Jump")) {
-			Discharge ();
-		}
-
-		GetComponent<ParticleSystem> ();
-
 		if (!discharge) {
 			float emissionFactor = pm.fEnergy > 0.75f ? 2.0f - (1.0f - pm.fEnergy) : 1.0f;
 			emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (pm.fEnergy * maxEmissionRate * emissionFactor); 

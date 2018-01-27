@@ -113,39 +113,50 @@ public class PlayerLogic : MonoBehaviour
         {
             LaunchPower(POWER.DASH);
         }
+
+		if (Input.GetButtonDown("Bomb/Overlord" + (int)player))
+		{
+			if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
+			{
+				LaunchPower(POWER.OVERLORD);
+			}
+			else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE)
+			{
+				LaunchPower(POWER.BOMB);
+			}
+		}
     }
 
     void CheckInput(PLAYER playerInput)
-    {
-        Vector3 RightStick;
-        RightStick.x = Input.GetAxis("RHorizontal" + (int)playerInput);
-        RightStick.y = 0;
-        RightStick.z = Input.GetAxis("RVertical" + (int)playerInput);
+	{
+		Vector3 RightStick;
+		RightStick.x = Input.GetAxis ("RHorizontal" + (int)playerInput);
+		RightStick.y = 0;
+		RightStick.z = Input.GetAxis ("RVertical" + (int)playerInput);
 
-        RightStick.Normalize();
-        Aim = RightStick.magnitude == 0.0f ? Aim : RightStick;
+		RightStick.Normalize ();
+		Aim = RightStick.magnitude == 0.0f ? Aim : RightStick;
 
-        Vector3 LeftStick;
-        LeftStick.x = Input.GetAxis("LHorizontal" + (int)playerInput);
-        LeftStick.y = 0;
-        LeftStick.z = Input.GetAxis("LVertical" + (int)playerInput);
+		Vector3 LeftStick;
+		LeftStick.x = Input.GetAxis ("LHorizontal" + (int)playerInput);
+		LeftStick.y = 0;
+		LeftStick.z = Input.GetAxis ("LVertical" + (int)playerInput);
 
-        LeftStick.Normalize();
+		LeftStick.Normalize ();
 
-        //Move the pointer.
-        Pointer.LookAt(Pointer.position + RightStick);
+		//Move the pointer.
+		Pointer.LookAt (Pointer.position + RightStick);
 
-        //Move the Player
+		//Move the Player
 		if (lockDirection) {
 			MoveStraight ();
-		} 
-		else {
+		} else {
 			MovePlayer (LeftStick);
 		}
 
-        CheckForPowerInput(playerInput);
+		CheckForPowerInput (playerInput);
 
-        }    }
+	}
 
     void Update()
     {
