@@ -52,4 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_State: 0
-  playerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 1804813195975854, guid: 4e28ff1dba7e88742b02dfea4bb3f27d,
+    type: 2}
