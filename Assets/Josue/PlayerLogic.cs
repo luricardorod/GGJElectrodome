@@ -37,6 +37,7 @@ public class PlayerLogic : MonoBehaviour
 
     bool m_Active;
 
+    public float groundDistance = 0.1f;
     public GameObject[] PowerPrefabs;
     public float fDashLength = 10.0f;
     public float fEnergy = 0;
@@ -48,8 +49,15 @@ public class PlayerLogic : MonoBehaviour
     public float fDelayLooseEnergy = 0.001f;
     private float fStopTime = 0;
     private float fAngle = 0;
+<<<<<<< HEAD
     private float fGravityDash = 0.5f;
 
+=======
+    private float SpeedScale = 1;
+    private SphereCollider ownCollider;
+    private float fHexPerSecond = (1/5.0f);
+    private float fTimeInAir = 0.0f;
+>>>>>>> a7b18434420a57607226cf8029e1d04972c36059
     void Start()
     {
         Live();
@@ -57,7 +65,7 @@ public class PlayerLogic : MonoBehaviour
         m_ActiveMoveset = MOVE_SET.DEFFENSIVE;
 
         GetComponentInChildren<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-
+        ownCollider = GetComponentInChildren<SphereCollider>();
     }
     void MovePlayer(Vector3 direction)
     {
@@ -68,7 +76,7 @@ public class PlayerLogic : MonoBehaviour
             fEnergy += Mathf.Pow((fOffsetMinEnergy - fEnergy), (fEnergy + fGainEnergy)) * (fScaleEnergy) * Time.deltaTime * fMagnitude * fDelayTimeCharge;
             if (direction != Vector3.zero)
                 Body.rotation = Quaternion.LookRotation(direction);
-            Body.position += (direction * Time.deltaTime * fEnergy * fMaxSpeed);
+            Body.position += (direction * Time.deltaTime * fEnergy * fMaxSpeed*SpeedScale);
         }
         else
         {
@@ -124,6 +132,24 @@ public class PlayerLogic : MonoBehaviour
     {
         CheckInput(m_PlayerNumber);
         SetColor();
+<<<<<<< HEAD
+=======
+        if (GetGround()==null)
+        {
+            if(fEnergy>fHexPerSecond)
+            {
+                fTimeInAir += Time.deltaTime;
+                if (fTimeInAir > fHexPerSecond)
+                {
+                    SpeedScale = 0;
+                }
+            }
+        }
+        else
+        {
+            fTimeInAir = 0;
+        }
+>>>>>>> a7b18434420a57607226cf8029e1d04972c36059
     }
 
     void Live()
@@ -188,6 +214,26 @@ public class PlayerLogic : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private Transform GetGround()
+    {
+        Vector3 feets = ownCollider.bounds.center;
+        feets -= Vector3.up * (ownCollider.bounds.extents.y * 0.99f);
+
+        RaycastHit rayInfo;
+
+        Debug.DrawLine(feets,feets-new Vector3(0,-groundDistance,0));
+
+        if (Physics.Raycast(feets,
+                            -Vector3.up,
+                            out rayInfo,
+                            groundDistance))
+        {
+            return rayInfo.collider.transform;
+        }
+
+        return null;
     }
 }
 
