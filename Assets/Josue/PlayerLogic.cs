@@ -49,15 +49,13 @@ public class PlayerLogic : MonoBehaviour
     public float fDelayLooseEnergy = 0.001f;
     private float fStopTime = 0;
     private float fAngle = 0;
-<<<<<<< HEAD
     private float fGravityDash = 0.5f;
 
-=======
     private float SpeedScale = 1;
     private SphereCollider ownCollider;
     private float fHexPerSecond = (1/5.0f);
     private float fTimeInAir = 0.0f;
->>>>>>> a7b18434420a57607226cf8029e1d04972c36059
+
     void Start()
     {
         Live();
@@ -132,8 +130,7 @@ public class PlayerLogic : MonoBehaviour
     {
         CheckInput(m_PlayerNumber);
         SetColor();
-<<<<<<< HEAD
-=======
+
         if (GetGround()==null)
         {
             if(fEnergy>fHexPerSecond)
@@ -149,7 +146,6 @@ public class PlayerLogic : MonoBehaviour
         {
             fTimeInAir = 0;
         }
->>>>>>> a7b18434420a57607226cf8029e1d04972c36059
     }
 
     void Live()
