@@ -26,7 +26,7 @@ public enum POWER
 public class PlayerLogic : MonoBehaviour
 {
     public PLAYER m_PlayerNumber;
-    public GameObject TrailPrefab; 
+    public GameObject TrailPrefab;
 
     MOVE_SET m_ActiveMoveset;
     PlayerMovement playerMovScript;
@@ -78,6 +78,7 @@ public class PlayerLogic : MonoBehaviour
     void SetColor()
     {
         var player = gameObject.GetComponent<PlayerLogic>().m_PlayerNumber;
+
         Debug.Log(player.ToString());
         switch (player)
         {
