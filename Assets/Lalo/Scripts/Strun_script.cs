@@ -5,24 +5,24 @@ using UnityEngine;
 public class Strun_script : MonoBehaviour
 {
     public float StunDuration;
+    public float Speed;
+    public Vector3 Direction;
 
     // Use this for initialization
     void Start()
     {
-
+        Destroy(this, 10);
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        transform.Translate(Direction * Speed * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "Player")
         StartCoroutine(StunTime(other));
-        //StopCoroutine(StunTime);
-
     }
 
     // Stuns the player for a given time.

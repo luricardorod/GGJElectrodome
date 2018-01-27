@@ -11,15 +11,15 @@ public enum MOVE_SET
 
 public enum POWER
 {
-    DASH,
-    PARRY,
     BARRIER,
     STUN,
     CHAINED,
     BOMB,
     OVERLORD,
     SLIDE,
-    POWER_MAX
+    POWER_MAX,
+    DASH,
+    PARRY
 }
 
 [RequireComponent(typeof(Rigidbody))]
@@ -83,6 +83,7 @@ public class PlayerLogic : MonoBehaviour
         RightStick.z = Input.GetAxis("RVertical" + (int)playerInput);
 
         RightStick.Normalize();
+        Aim = RightStick;
 
         Vector3 LeftStick;
         LeftStick.x = Input.GetAxis("LHorizontal" + (int)playerInput);
@@ -90,13 +91,22 @@ public class PlayerLogic : MonoBehaviour
         LeftStick.z = Input.GetAxis("LVertical" + (int)playerInput);
 
         LeftStick.Normalize();
-        Aim = LeftStick;
 
         //Move the pointer.
         Pointer.LookAt(Pointer.position + RightStick);
 
         //Move the Player
         MovePlayer(LeftStick);
+
+        if (Input.GetButtonDown("Stun/Chained"))
+        {
+            LaunchPower(POWER.STUN);
+        }
+
+        if (Input.GetButtonDown("Dash/Parry"))
+        {
+            LaunchPower(POWER.DASH);
+        }
 
     }
 
@@ -123,7 +133,16 @@ public class PlayerLogic : MonoBehaviour
 
     public void LaunchPower(POWER powerToFire)
     {
-        //Lanzar PowerPrefab[(int)powerToFire];
+        switch (powerToFire)
+        {
+            case POWER.DASH:
+                Body.position += (Aim * 30.0f);
+                break;
+            case POWER.STUN:
+                Instantiate<GameObject>(PowerPrefabs[0], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Strun_script>().Direction = Aim;
+                break;
+        }
+
     }
 
     void SetColor()

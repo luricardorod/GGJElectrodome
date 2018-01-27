@@ -38,10 +38,9 @@ GameObject:
   - component: {fileID: 135319100532438158}
   - component: {fileID: 23901546420168406}
   - component: {fileID: 54352269396776374}
-  - component: {fileID: 114538454513757520}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,7 +176,7 @@ GameObject:
   - component: {fileID: 114039487481410410}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -290,7 +289,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1988732139334164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.06, z: 0}
+  m_LocalPosition: {x: 0, y: 8.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4596718470396334}
@@ -705,25 +704,15 @@ MonoBehaviour:
   TrailPrefab: {fileID: 1994915156245824}
   Pointer: {fileID: 4446852097892258}
   Body: {fileID: 4596718470396334}
-  PowerPrefabs: []
+  PowerPrefabs:
+  - {fileID: 1831890623041538, guid: 55a5ac3ffebd25041818cb1e6bc00275, type: 2}
   fEnergy: 0
-  fMaxSpeed: 20
+  fMaxSpeed: 30
   fScaleEnergy: 0.4
   fGainEnergy: 0.4
   fOffsetMinEnergy: 1.2
   fDelayTimeCharge: 0.5
   fDelayLooseEnergy: 0.001
---- !u!114 &114538454513757520
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1310764150767768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5693467cbec36c544883f96edb974457, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114603570794525066
 MonoBehaviour:
   m_ObjectHideFlags: 1
