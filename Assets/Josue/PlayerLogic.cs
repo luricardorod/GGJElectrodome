@@ -9,6 +9,21 @@ public enum MOVE_SET
     MOVE_SET_MAX
 }
 
+<<<<<<< HEAD
+public enum POWER
+{
+    DASH,
+    PARRY,
+    BARRIER,
+    STUN,
+    CHAINED,
+    BOMB,
+    OVERLORD,
+    SLIDE,
+    POWER_MAX
+}
+=======
+>>>>>>> 9204ccc05337f8fd311fa855b2b1c532763dca53
 
 public class PlayerLogic : MonoBehaviour
 {
@@ -16,19 +31,37 @@ public class PlayerLogic : MonoBehaviour
     public GameObject TrailPrefab; 
 
     MOVE_SET m_ActiveMoveset;
-    float m_Energy;
+    PlayerMovement playerMovScript;
 
     bool m_Active;
+
+    public GameObject[] PowerPrefabs;
 
     void Start()
     {
         Live();
+<<<<<<< HEAD
+        playerMovScript = GetComponent<PlayerMovement>();
+    }
+
+    void CheckInput(PLAYER playerInput)
+    {
+        //TODO
+        //Disparar Cosas. Llamar LaunchPower
+        //playerMovScript.fEnergy para sacar el Energy float.
+    }
+
+    void Update()
+    {
+        CheckInput(m_PlayerNumber);
+=======
         SetColor();
+>>>>>>> 9204ccc05337f8fd311fa855b2b1c532763dca53
     }
 
     void Live()
     {
-        m_Energy = 0.0f;
+        playerMovScript.fEnergy = 0.0f;
         m_ActiveMoveset = MOVE_SET.OFFENSIVE;
         m_Active = true;
     }
@@ -39,6 +72,11 @@ public class PlayerLogic : MonoBehaviour
         GameState.GlobalGameState.PlayerKilled(m_PlayerNumber);
     }
 
+<<<<<<< HEAD
+    public void LaunchPower(POWER powerToFire)
+    {
+        //Lanzar PowerPrefab[(int)powerToFire];
+=======
     void SetColor() {
         var player = gameObject.GetComponent<PlayerLogic>().m_PlayerNumber;
         Debug.Log(player);
@@ -58,5 +96,6 @@ public class PlayerLogic : MonoBehaviour
             default:
                 break;
         }
+>>>>>>> 9204ccc05337f8fd311fa855b2b1c532763dca53
     }
 }
