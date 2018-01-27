@@ -44,7 +44,7 @@ public class ParticlesColor : MonoBehaviour {
 
 	void Update() {
 
-		if (Input.GetButtonDown ("Jump")) {
+		if (pm.fEnergy == 0) {
 			Discharge ();
 		}
 
