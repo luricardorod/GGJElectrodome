@@ -38,7 +38,7 @@ public class PlayerLogic : MonoBehaviour
     bool m_Active;
 
     public GameObject[] PowerPrefabs;
-
+    public float fDashLength = 10.0f;
     public float fEnergy = 0;
     public float fMaxSpeed = 20;
     public float fScaleEnergy = 0.4f;
@@ -136,7 +136,7 @@ public class PlayerLogic : MonoBehaviour
         switch (powerToFire)
         {
             case POWER.DASH:
-                Body.position += (Aim * 30.0f);
+                Body.position += (Aim * fDashLength);
                 break;
             case POWER.STUN:
                 Instantiate<GameObject>(PowerPrefabs[0], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Strun_script>().Direction = Aim;
