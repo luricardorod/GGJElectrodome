@@ -84,12 +84,11 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4b5dce0492bdfb648a389fe390071625, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,7 +99,6 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -115,7 +113,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310517796440636}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 51781425e00071b4fae291ff512b9407, type: 3}
 --- !u!54 &54697922098179256
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -139,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1121985067869120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 400037d2034ee784c88d5ff88c1d7320, type: 3}
+  m_Script: {fileID: 11500000, guid: 371213d98fb36334bb72bc09612e893f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114508559517340686
@@ -150,10 +148,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1310517796440636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9164f871727c8c94b9e43c172a99b441, type: 3}
+  m_Script: {fileID: 11500000, guid: f1ede9e2663535949b58e8cd5ef7836e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 0
+  Duration: 3
   Col: {fileID: 135229882661063454}
   StartPosition: {x: 0, y: 0, z: 0}
 --- !u!135 &135229882661063454

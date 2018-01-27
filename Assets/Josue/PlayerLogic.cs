@@ -60,7 +60,7 @@ public class PlayerLogic : MonoBehaviour
     {
         Live();
 
-        m_ActiveMoveset = MOVE_SET.DEFFENSIVE;
+        m_ActiveMoveset = MOVE_SET.OFFENSIVE;
 
         GetComponentInChildren<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         ownCollider = GetComponentInChildren<SphereCollider>();
@@ -82,6 +82,33 @@ public class PlayerLogic : MonoBehaviour
             fEnergy -= fStopTime * fStopTime * fDelayLooseEnergy;
         }
         fEnergy = Mathf.Clamp(fEnergy, 0, 1);
+    }
+
+    void CheckForPowerInput(PLAYER player)
+    {
+        if (Input.GetButtonDown("FlipMoveSet" + (int)player))
+        {
+            if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) m_ActiveMoveset = MOVE_SET.OFFENSIVE;
+            else
+            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) m_ActiveMoveset = MOVE_SET.DEFFENSIVE;
+        }
+
+        if (Input.GetButtonDown("Stun/Slide" + (int)player))
+        {
+            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
+            {
+                LaunchPower(POWER.STUN);
+            }
+            else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE)
+            {
+                LaunchPower(POWER.CHAINED);
+            }
+        }
+
+        if (Input.GetButtonDown("Dash/Parry" + (int)player))
+        {
+            LaunchPower(POWER.DASH);
+        }
     }
 
     void CheckInput(PLAYER playerInput)
@@ -107,22 +134,7 @@ public class PlayerLogic : MonoBehaviour
         //Move the Player
         MovePlayer(LeftStick);
 
-        if (Input.GetButtonDown("Stun/Chained"))
-        {
-            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
-            {
-                LaunchPower(POWER.STUN);
-            }
-            else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE)
-            {
-                LaunchPower(POWER.CHAINED);
-            }
-        }
-
-        if (Input.GetButtonDown("Dash/Parry"))
-        {
-            LaunchPower(POWER.DASH);
-        }
+        CheckForPowerInput(playerInput);
 
     }
 
@@ -131,7 +143,7 @@ public class PlayerLogic : MonoBehaviour
         CheckInput(m_PlayerNumber);
         SetColor();
 
-        if (GetGround()==null)
+        if (GetGround() == null)
         {
             if(fEnergy>fHexPerSecond)
             {
@@ -160,7 +172,6 @@ public class PlayerLogic : MonoBehaviour
         m_Active = false;
         GameState.GlobalGameState.PlayerKilled(m_PlayerNumber);
     }
-
 
     public void LaunchPower(POWER powerToFire)
     {
