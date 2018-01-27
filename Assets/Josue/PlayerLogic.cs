@@ -53,6 +53,8 @@ public class PlayerLogic : MonoBehaviour
     {
         Live();
 
+        m_ActiveMoveset = MOVE_SET.DEFFENSIVE;
+
         GetComponentInChildren<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
     }
@@ -100,7 +102,14 @@ public class PlayerLogic : MonoBehaviour
 
         if (Input.GetButtonDown("Stun/Chained"))
         {
-            LaunchPower(POWER.STUN);
+            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
+            {
+                LaunchPower(POWER.STUN);
+            }
+            else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE)
+            {
+                LaunchPower(POWER.CHAINED);
+            }
         }
 
         if (Input.GetButtonDown("Dash/Parry"))
