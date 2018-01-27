@@ -146,6 +146,14 @@ public class PlayerLogic : MonoBehaviour
         {
             fTimeInAir = 0;
         }
+
+        if( transform.GetChild(0).position.y<-3)
+        {
+           float fFalling = Mathf.Clamp( 0.14f * transform.GetChild(0).position.y + 1.42f,0.3f,1);
+            transform.GetChild(0).localScale = new Vector3(fFalling, fFalling, fFalling);
+        }
+
+
     }
 
     void Live()
