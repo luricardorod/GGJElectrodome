@@ -9,7 +9,6 @@ public enum MOVE_SET
     MOVE_SET_MAX
 }
 
-<<<<<<< HEAD
 public enum POWER
 {
     DASH,
@@ -22,8 +21,7 @@ public enum POWER
     SLIDE,
     POWER_MAX
 }
-=======
->>>>>>> 9204ccc05337f8fd311fa855b2b1c532763dca53
+
 
 public class PlayerLogic : MonoBehaviour
 {
@@ -40,7 +38,7 @@ public class PlayerLogic : MonoBehaviour
     void Start()
     {
         Live();
-<<<<<<< HEAD
+
         playerMovScript = GetComponent<PlayerMovement>();
     }
 
@@ -54,9 +52,8 @@ public class PlayerLogic : MonoBehaviour
     void Update()
     {
         CheckInput(m_PlayerNumber);
-=======
         SetColor();
->>>>>>> 9204ccc05337f8fd311fa855b2b1c532763dca53
+
     }
 
     void Live()
@@ -72,15 +69,18 @@ public class PlayerLogic : MonoBehaviour
         GameState.GlobalGameState.PlayerKilled(m_PlayerNumber);
     }
 
-<<<<<<< HEAD
+
     public void LaunchPower(POWER powerToFire)
     {
         //Lanzar PowerPrefab[(int)powerToFire];
-=======
-    void SetColor() {
+    }
+
+    void SetColor()
+    {
         var player = gameObject.GetComponent<PlayerLogic>().m_PlayerNumber;
         Debug.Log(player.ToString());
-        switch (player) {
+        switch (player)
+        {
             case PLAYER.PLAYER_1:
                 TrailPrefab.GetComponent<TrailRenderer>().materials[0].color = Color.red;
                 break;
@@ -96,6 +96,6 @@ public class PlayerLogic : MonoBehaviour
             default:
                 break;
         }
->>>>>>> 9204ccc05337f8fd311fa855b2b1c532763dca53
     }
 }
+
