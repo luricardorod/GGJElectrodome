@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerNumber: 0
+  TrailPrefab: {fileID: 1380130762834758}
 --- !u!135 &135211690282207462
 SphereCollider:
   m_ObjectHideFlags: 1
