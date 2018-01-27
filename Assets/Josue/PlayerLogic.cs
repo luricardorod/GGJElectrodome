@@ -48,6 +48,7 @@ public class PlayerLogic : MonoBehaviour
     public float fDelayLooseEnergy = 0.001f;
     private float fStopTime = 0;
     private float fAngle = 0;
+    private float fGravityDash = 0.5f;
 
     void Start()
     {
@@ -83,7 +84,7 @@ public class PlayerLogic : MonoBehaviour
         RightStick.z = Input.GetAxis("RVertical" + (int)playerInput);
 
         RightStick.Normalize();
-        Aim = RightStick;
+        Aim = RightStick.magnitude == 0.0f ? Aim : RightStick;
 
         Vector3 LeftStick;
         LeftStick.x = Input.GetAxis("LHorizontal" + (int)playerInput);
@@ -114,7 +115,6 @@ public class PlayerLogic : MonoBehaviour
     {
         CheckInput(m_PlayerNumber);
         SetColor();
-
     }
 
     void Live()
@@ -137,6 +137,8 @@ public class PlayerLogic : MonoBehaviour
         {
             case POWER.DASH:
                 Body.position += (Aim * fDashLength);
+                Body.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                StartCoroutine(GravityOff());
                 break;
             case POWER.STUN:
                 Instantiate<GameObject>(PowerPrefabs[0], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Strun_script>().Direction = Aim;
@@ -146,6 +148,13 @@ public class PlayerLogic : MonoBehaviour
                 break;
         }
 
+    }
+
+    IEnumerator GravityOff()
+    {
+        yield return new WaitForSeconds(fGravityDash);
+
+        Body.gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
 
     void SetColor()
