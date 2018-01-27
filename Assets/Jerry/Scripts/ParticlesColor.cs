@@ -21,6 +21,7 @@ public class ParticlesColor : MonoBehaviour {
 	private ParticleSystem.NoiseModule noiseMod;
 	private ParticleSystem.ShapeModule shapeMod;
 	private ParticleSystem.ColorOverLifetimeModule colorOverLifeTimeMod;
+	private ParticleSystem.MainModule mainMod;
 	private bool discharge = false;
 	private bool explosionToggled = false;
 	private float dischargedTime = 0.0f;
@@ -31,6 +32,7 @@ public class ParticlesColor : MonoBehaviour {
 		emissionMod = ps.emission;
 		noiseMod = ps.noise;
 		shapeMod = ps.shape;
+		mainMod = ps.main;
 		colorOverLifeTimeMod = ps.colorOverLifetime;
 		colorA.a = 1.0F;
 		colorB.a = 1.0F;
@@ -44,7 +46,7 @@ public class ParticlesColor : MonoBehaviour {
 
 	void Update() {
 
-		if (Input.GetButtonDown ("Jump")) {
+		if (pm.fEnergy == 0) {
 			Discharge ();
 		}
 
@@ -55,7 +57,7 @@ public class ParticlesColor : MonoBehaviour {
 			emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (pm.fEnergy * maxEmissionRate * emissionFactor); 
 		} 
 		else {
-			Debug.Log ("Explosion");
+			//Debug.Log ("Explosion");
 			dischargedTime += Time.deltaTime;
 			if (dischargedTime > explosionDuration) {
 				ResetParticleSettings ();
@@ -66,7 +68,7 @@ public class ParticlesColor : MonoBehaviour {
 	}
 
 	void ResetParticleSettings() {
-		Debug.Log ("Explosion Off");
+		//Debug.Log ("Explosion Off");
 		emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (maxEmissionRate * 3.0f); 
 		noiseMod.scrollSpeed = new ParticleSystem.MinMaxCurve (5);
 		shapeMod.radius = 0.01f;
@@ -76,13 +78,13 @@ public class ParticlesColor : MonoBehaviour {
 		SetColor (GetComponent<ParticleSystem> (), colorA, colorB);
 		SetColor(transform.GetChild (0).GetComponent<ParticleSystem> (), colorA, colorB);
 		colorOverLifeTimeMod.enabled = false;
+		mainMod.startSize = new ParticleSystem.MinMaxCurve (0.3f, 0.8f);
 	}
 
 	void Explode() 
 	{
 		shapeMod.radius = 1.0f;
-		noiseMod.scrollSpeed = new ParticleSystem.MinMaxCurve (50);
-		Debug.Log ("Explosion RRR");
+		//Debug.Log ("Explosion RRR");
 		explosionToggled = true;
 		noiseMod.strength = new ParticleSystem.MinMaxCurve (8.0f, 12.0f);
 	}
@@ -93,10 +95,11 @@ public class ParticlesColor : MonoBehaviour {
 			discharge = true;
 			dischargedTime = 0.0f;
 			colorOverLifeTimeMod.enabled = true;
-			noiseMod.strength = new ParticleSystem.MinMaxCurve (1.0f, 2.0f);
-			emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (maxEmissionRate * 2.0f); 
+			noiseMod.strength = new ParticleSystem.MinMaxCurve (0.0f, 0.5f);
+			emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (50.0f); 
 			noiseMod.scrollSpeed = new ParticleSystem.MinMaxCurve (0);
 			explosionToggled = false;
+			mainMod.startSize = new ParticleSystem.MinMaxCurve (1.0f, 1.5f);
 			SetColor (GetComponent<ParticleSystem> (), explodeA, explodeB);
 			SetColor(transform.GetChild (0).GetComponent<ParticleSystem> (), explodeA, explodeB);
 		}

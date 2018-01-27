@@ -30,6 +30,9 @@ public class Strun_script : MonoBehaviour
     {
         PlayerLogic playerOther = other.GetComponentInParent<PlayerLogic>();
 
+        playerOther.Die();
+        Destroy(other.gameObject.transform.parent.gameObject);
+
         // Store the player's speed.
         float fOtherSpped = playerOther.fMaxSpeed;
         // The other player is stopped.

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Slide : MonoBehaviour {
 
+	public float boostSpeed = 1.5f;
+	PlayerLogic pl;
+	float maxSpeed;
 	// Use this for initialization
 	void Start () {
 		
@@ -12,5 +15,24 @@ public class Slide : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void OnTriggerEnter(Collider collider) {
+		if (collider.tag == "Player") {
+			if (!pl) {
+				pl = collider.gameObject.GetComponentInParent<PlayerLogic> ();
+			}
+
+			maxSpeed = pl.fMaxSpeed;
+			pl.fMaxSpeed *= boostSpeed;
+			pl.lockDirection = true;
+		}
+	}
+
+	void OnTriggerExit(Collider collider) {
+		if (collider.tag == "Player") {
+			pl.fMaxSpeed = maxSpeed;
+			pl.lockDirection = false;
+		}
 	}
 }

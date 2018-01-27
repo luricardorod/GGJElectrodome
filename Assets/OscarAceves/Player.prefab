@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 135211690282207462}
   - component: {fileID: 23737332688838066}
   - component: {fileID: 114843325072520458}
+  - component: {fileID: 114818667942314462}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -292,6 +293,17 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114818667942314462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1804813195975854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2da136b9f5abd4bbc7c7926dd592df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114843325072520458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,6 +317,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerNumber: 0
   TrailPrefab: {fileID: 1380130762834758}
+  Pointer: {fileID: 0}
+  Body: {fileID: 0}
+  PowerPrefabs: []
+  fDashLength: 10
+  fEnergy: 0
+  fMaxSpeed: 20
+  fScaleEnergy: 0.4
+  fGainEnergy: 0.4
+  fOffsetMinEnergy: 1.2
+  fDelayTimeCharge: 0.5
+  fDelayLooseEnergy: 0.001
 --- !u!135 &135211690282207462
 SphereCollider:
   m_ObjectHideFlags: 1
