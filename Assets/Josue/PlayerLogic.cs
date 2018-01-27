@@ -141,6 +141,9 @@ public class PlayerLogic : MonoBehaviour
             case POWER.STUN:
                 Instantiate<GameObject>(PowerPrefabs[0], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Strun_script>().Direction = Aim;
                 break;
+            case POWER.CHAINED:
+                Instantiate<GameObject>(PowerPrefabs[1], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Chain_Script>().StartPosition = transform.position;
+                break;
         }
 
     }

@@ -8,7 +8,8 @@ public class Chain_Script : MonoBehaviour
     public float Duration;
 
     // The position where the player used the chain 
-    private Vector3 StartPosition;
+    [HideInInspector]
+    public Vector3 StartPosition;
     // If the bullet hit the enemy we sotre that position in here.
     private Vector3 EndPosition;
 
