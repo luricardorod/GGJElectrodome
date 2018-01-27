@@ -28,14 +28,16 @@ public class Strun_script : MonoBehaviour
     // Stuns the player for a given time.
     IEnumerator StunTime(Collider other)
     {
+        PlayerLogic playerOther = other.GetComponentInParent<PlayerLogic>();
+
         // Store the player's speed.
-        float fOtherSpped = other.GetComponent<PlayerMovement>().fMaxSpeed;
+        float fOtherSpped = playerOther.fMaxSpeed;
         // The other player is stopped.
-        other.GetComponent<PlayerMovement>().fMaxSpeed = 0;
+        playerOther.fMaxSpeed = 0;
         // We wait for the stun to finish.
         yield return new WaitForSeconds(StunDuration);
         // We Make the enemy able to move again.
-        other.GetComponent<PlayerMovement>().fMaxSpeed = fOtherSpped;
+        playerOther.fMaxSpeed = fOtherSpped;
 
         Destroy(gameObject);
     }

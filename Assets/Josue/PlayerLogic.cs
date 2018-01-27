@@ -22,31 +22,82 @@ public enum POWER
     POWER_MAX
 }
 
-
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerLogic : MonoBehaviour
 {
     public PLAYER m_PlayerNumber;
     public GameObject TrailPrefab;
 
+    Vector3 Aim;
+
     MOVE_SET m_ActiveMoveset;
-    PlayerMovement playerMovScript;
+
+    public Transform Pointer;
+    public Transform Body;
 
     bool m_Active;
 
     public GameObject[] PowerPrefabs;
 
+    public float fEnergy = 0;
+    public float fMaxSpeed = 20;
+    public float fScaleEnergy = 0.4f;
+    public float fGainEnergy = 0.4f;
+    public float fOffsetMinEnergy = 1.2f;
+    public float fDelayTimeCharge = 0.5f;
+    public float fDelayLooseEnergy = 0.001f;
+    private float fStopTime = 0;
+    private float fAngle = 0;
+
     void Start()
     {
         Live();
 
-        playerMovScript = GetComponent<PlayerMovement>();
+        GetComponentInChildren<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+    }
+    void MovePlayer(Vector3 direction)
+    {
+        float fMagnitude = direction.magnitude;
+        if (fMagnitude > 0)
+        {
+            fStopTime = 0;
+            fEnergy += Mathf.Pow((fOffsetMinEnergy - fEnergy), (fEnergy + fGainEnergy)) * (fScaleEnergy) * Time.deltaTime * fMagnitude * fDelayTimeCharge;
+            if (direction != Vector3.zero)
+                Body.rotation = Quaternion.LookRotation(direction);
+            Body.position += (direction * Time.deltaTime * fEnergy * fMaxSpeed);
+        }
+        else
+        {
+            fStopTime += Time.deltaTime;
+            fEnergy -= fStopTime * fStopTime * fDelayLooseEnergy;
+        }
+        fEnergy = Mathf.Clamp(fEnergy, 0, 1);
     }
 
     void CheckInput(PLAYER playerInput)
     {
-        //TODO
-        //Disparar Cosas. Llamar LaunchPower
-        //playerMovScript.fEnergy para sacar el Energy float.
+        Vector3 RightStick;
+        RightStick.x = Input.GetAxis("RHorizontal" + (int)playerInput);
+        RightStick.y = 0;
+        RightStick.z = Input.GetAxis("RVertical" + (int)playerInput);
+
+        RightStick.Normalize();
+
+        Vector3 LeftStick;
+        LeftStick.x = Input.GetAxis("LHorizontal" + (int)playerInput);
+        LeftStick.y = 0;
+        LeftStick.z = Input.GetAxis("LVertical" + (int)playerInput);
+
+        LeftStick.Normalize();
+        Aim = LeftStick;
+
+        //Move the pointer.
+        Pointer.LookAt(Pointer.position + RightStick);
+
+        //Move the Player
+        MovePlayer(LeftStick);
+
     }
 
     void Update()
@@ -58,7 +109,7 @@ public class PlayerLogic : MonoBehaviour
 
     void Live()
     {
-        playerMovScript.fEnergy = 0.0f;
+        fEnergy = 0.0f;
         m_ActiveMoveset = MOVE_SET.OFFENSIVE;
         m_Active = true;
     }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ParticlesColor : MonoBehaviour {
 
-	// Use this for initialization
+    // Use this for initialization
 
-	//Regular strenght 4-6
-	//Animación 
+    //Regular strenght 4-6
+    //Animación 
 
-	PlayerMovement pm;
+    PlayerLogic pm;
 	public float explosionDuration;
 	public Transform attachedObj;
 	public float maxEmissionRate = 10.0f;
@@ -27,7 +27,7 @@ public class ParticlesColor : MonoBehaviour {
 
 	void Start () {
 		ParticleSystem ps = GetComponent<ParticleSystem> ();
-		pm = attachedObj.GetComponent<PlayerMovement> ();
+		pm = attachedObj.GetComponentInParent<PlayerLogic> ();
 		emissionMod = ps.emission;
 		noiseMod = ps.noise;
 		shapeMod = ps.shape;
