@@ -131,7 +131,7 @@ public class PlayerLogic : MonoBehaviour
         CheckInput(m_PlayerNumber);
         SetColor();
 
-        if (GetGround()==null)
+        if (GetGround()==null&& Body.gameObject.GetComponent<Rigidbody>().useGravity)
         {
             if(fEnergy>fHexPerSecond)
             {
@@ -149,8 +149,9 @@ public class PlayerLogic : MonoBehaviour
 
         if( transform.GetChild(0).position.y<-3)
         {
-           float fFalling = Mathf.Clamp( 0.14f * transform.GetChild(0).position.y + 1.42f,0.3f,1);
+           float fFalling = Mathf.Clamp( 7/170.0f * transform.GetChild(0).position.y + 191/170.0f,0.3f,1);
             transform.GetChild(0).localScale = new Vector3(fFalling, fFalling, fFalling);
+            transform.GetChild(1).localScale = new Vector3(fFalling, fFalling, fFalling);
         }
 
 
