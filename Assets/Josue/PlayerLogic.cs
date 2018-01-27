@@ -41,7 +41,7 @@ public class PlayerLogic : MonoBehaviour
 
     void SetColor() {
         var player = gameObject.GetComponent<PlayerLogic>().m_PlayerNumber;
-        Debug.Log(player.ToString());
+        Debug.Log(player);
         switch (player) {
             case PLAYER.PLAYER_1:
                 TrailPrefab.GetComponent<TrailRenderer>().materials[0].color = Color.red;
