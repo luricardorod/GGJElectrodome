@@ -22,6 +22,8 @@ public enum POWER
     PARRY
 }
 
+
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerLogic : MonoBehaviour
 {
@@ -65,6 +67,7 @@ public class PlayerLogic : MonoBehaviour
         GetComponentInChildren<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         ownCollider = GetComponentInChildren<SphereCollider>();
     }
+
     void MovePlayer(Vector3 direction)
     {
         float fMagnitude = direction.magnitude;
@@ -90,15 +93,20 @@ public class PlayerLogic : MonoBehaviour
 
     void CheckForPowerInput(PLAYER player)
     {
+        const float Level1Energy = 0.25f;
+        const float Level2Energy = 0.5f;
+        const float Level3Energy = 0.75f;
+        const float Level4Energy = 1.00f;
+
         if (Input.GetButtonDown("FlipMoveSet" + (int)player))
         {
             if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) m_ActiveMoveset = MOVE_SET.OFFENSIVE;
             else
             if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) m_ActiveMoveset = MOVE_SET.DEFFENSIVE;
         }
-
-        if (Input.GetButtonDown("Stun/Slide" + (int)player))
+        if (Input.GetButtonDown("Stun/Slide" + (int)player) && fEnergy >= Level2Energy)
         {
+            fEnergy = Mathf.Max(fEnergy - Level2Energy, 0.0f);
             if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
             {
                 LaunchPower(POWER.STUN);
@@ -108,9 +116,9 @@ public class PlayerLogic : MonoBehaviour
                 LaunchPower(POWER.CHAINED);
             }
         }
-
-        if (Input.GetButtonDown("Dash/Parry" + (int)player))
+        if (Input.GetButtonDown("Dash/Parry" + (int)player) && fEnergy >= Level1Energy)
         {
+            fEnergy = Mathf.Max(fEnergy - Level1Energy, 0.0f);
             LaunchPower(POWER.DASH);
         }
 
@@ -134,13 +142,16 @@ public class PlayerLogic : MonoBehaviour
 		RightStick.y = 0;
 		RightStick.z = Input.GetAxis ("RVertical" + (int)playerInput);
 
+       
 		RightStick.Normalize ();
 		Aim = RightStick.magnitude == 0.0f ? Aim : RightStick;
 
+       
 		Vector3 LeftStick;
 		LeftStick.x = Input.GetAxis ("LHorizontal" + (int)playerInput);
 		LeftStick.y = 0;
 		LeftStick.z = Input.GetAxis ("LVertical" + (int)playerInput);
+
 
 		LeftStick.Normalize ();
 
@@ -156,38 +167,40 @@ public class PlayerLogic : MonoBehaviour
 
 		CheckForPowerInput (playerInput);
 
-	}
-
+        }
     void Update()
     {
-        CheckInput(m_PlayerNumber);
-        SetColor();
-
-
-        if (GetGround()==null&& Body.gameObject.GetComponent<Rigidbody>().useGravity)
+        if (m_Active)
         {
+            CheckInput(m_PlayerNumber);
+            SetColor();
+
+
             if(fEnergy>fHexPerSecond)
-            {
-                fTimeInAir += Time.deltaTime;
+            {;
                 if (fTimeInAir > fHexPerSecond)
                 {
-                    SpeedScale = 0;
+                    fTimeInAir += Time.deltaTime;
+                    if (fTimeInAir > fHexPerSecond)
+                    {
+                        SpeedScale = 0;
+                    }
                 }
             }
-        }
-        else
-        {
-            fTimeInAir = 0;
-        }
+            else
+            {
+                fTimeInAir = 0;
+            }
 
-        if( transform.GetChild(0).position.y<-3)
-        {
-           float fFalling = Mathf.Clamp( 7/170.0f * transform.GetChild(0).position.y + 191/170.0f,0.3f,1);
-            transform.GetChild(0).localScale = new Vector3(fFalling, fFalling, fFalling);
-            transform.GetChild(1).localScale = new Vector3(fFalling, fFalling, fFalling);
+        
+            if (transform.GetChild(0).position.y < -3)
+            {
+                float fFalling = Mathf.Clamp(7 / 170.0f * transform.GetChild(0).position.y + 191 / 170.0f, 0.3f, 1);
+                transform.GetChild(0).localScale = new Vector3(fFalling, fFalling, fFalling);
+                transform.GetChild(1).localScale = new Vector3(fFalling, fFalling, fFalling);
+            }
+
         }
-
-
     }
 
     void Live()
@@ -197,7 +210,7 @@ public class PlayerLogic : MonoBehaviour
         m_Active = true;
     }
 
-    void Die()
+    public void Die()
     {
         m_Active = false;
         GameState.GlobalGameState.PlayerKilled(m_PlayerNumber);

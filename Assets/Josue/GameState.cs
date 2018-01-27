@@ -48,7 +48,7 @@ public class GameState : MonoBehaviour
 
         for (int i = 0; i < (int)PLAYER.PLAYER_MAX; ++i)
         {
-            m_PlayerPool[i] = Instantiate<GameObject>(playerPrefab, new Vector3(0, 0, i*2), Quaternion.identity);
+            m_PlayerPool[i] = Instantiate<GameObject>(playerPrefab, new Vector3(0, 5, i*2), Quaternion.identity);
             m_PlayerPool[i].GetComponent<PlayerLogic>().m_PlayerNumber = (PLAYER)i;
         }
     }
