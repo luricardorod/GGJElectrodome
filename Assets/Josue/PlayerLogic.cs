@@ -30,7 +30,7 @@ public class PlayerLogic : MonoBehaviour
     public PLAYER m_PlayerNumber;
     public GameObject TrailPrefab;
 
-    Vector3 Aim;
+	[HideInInspector]public Vector3 Aim;
 
     MOVE_SET m_ActiveMoveset;
 
@@ -52,8 +52,8 @@ public class PlayerLogic : MonoBehaviour
     private float fStopTime = 0;
     private float fAngle = 0;
     private float fGravityDash = 0.5f;
-
-    private float SpeedScale = 1;
+	[HideInInspector]public bool lockDirection = false;
+	private Vector3 currentDirection;    private float SpeedScale = 1;
     private SphereCollider ownCollider;
     private float fHexPerSecond = (1/5.0f);
     private float fTimeInAir = 0.0f;
@@ -77,7 +77,11 @@ public class PlayerLogic : MonoBehaviour
             fEnergy += Mathf.Pow((fOffsetMinEnergy - fEnergy), (fEnergy + fGainEnergy)) * (fScaleEnergy) * Time.deltaTime * fMagnitude * fDelayTimeCharge;
             if (direction != Vector3.zero)
                 Body.rotation = Quaternion.LookRotation(direction);
-            Body.position += (direction * Time.deltaTime * fEnergy * fMaxSpeed*SpeedScale);
+            Body.position += (direction * Time.deltaTime * fEnergy * fMaxSpeed);
+			//Save current direction
+			currentDirection = direction.normalized;
+			//
+            Body.position += (direction * Time.deltaTime * fEnergy * fMaxSpeed);
         }
         else
         {
@@ -142,11 +146,16 @@ public class PlayerLogic : MonoBehaviour
         Pointer.LookAt(Pointer.position + RightStick);
 
         //Move the Player
-        MovePlayer(LeftStick);
+		if (lockDirection) {
+			MoveStraight ();
+		} 
+		else {
+			MovePlayer (LeftStick);
+		}
 
         CheckForPowerInput(playerInput);
 
-    }
+        }    
 
     void Update()
     {
@@ -195,6 +204,11 @@ public class PlayerLogic : MonoBehaviour
         GameState.GlobalGameState.PlayerKilled(m_PlayerNumber);
     }
 
+	void MoveStraight () 
+	{
+		Body.position += (currentDirection * Time.deltaTime * fMaxSpeed);
+	}
+
     public void LaunchPower(POWER powerToFire)
     {
         switch (powerToFire)
@@ -210,6 +224,11 @@ public class PlayerLogic : MonoBehaviour
             case POWER.CHAINED:
                 Instantiate<GameObject>(PowerPrefabs[1], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Chain_Script>().StartPosition = transform.position;
                 break;
+			case POWER.OVERLORD:
+				OverlordPower op = Instantiate<GameObject> (PowerPrefabs [2], Body.position, Quaternion.identity).transform.GetChild(0).GetComponent<OverlordPower>();
+				op.invokerObj = transform.GetChild(0);
+				op.pl = this;
+				break;
         }
 
     }
