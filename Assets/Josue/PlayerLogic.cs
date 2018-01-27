@@ -37,6 +37,7 @@ public class PlayerLogic : MonoBehaviour
 
     bool m_Active;
 
+    public float groundDistance = 0.1f;
     public GameObject[] PowerPrefabs;
     public float fDashLength = 10.0f;
     public float fEnergy = 0;
@@ -48,14 +49,21 @@ public class PlayerLogic : MonoBehaviour
     public float fDelayLooseEnergy = 0.001f;
     private float fStopTime = 0;
     private float fAngle = 0;
+    private float fGravityDash = 0.5f;
 	[HideInInspector]public bool lockDirection = false;
-	private Vector3 currentDirection;
+	private Vector3 currentDirection;    private float SpeedScale = 1;
+    private SphereCollider ownCollider;
+    private float fHexPerSecond = (1/5.0f);
+    private float fTimeInAir = 0.0f;
+
     void Start()
     {
         Live();
 
-        GetComponentInChildren<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        m_ActiveMoveset = MOVE_SET.OFFENSIVE;
 
+        GetComponentInChildren<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        ownCollider = GetComponentInChildren<SphereCollider>();
     }
     void MovePlayer(Vector3 direction)
     {
@@ -66,6 +74,7 @@ public class PlayerLogic : MonoBehaviour
             fEnergy += Mathf.Pow((fOffsetMinEnergy - fEnergy), (fEnergy + fGainEnergy)) * (fScaleEnergy) * Time.deltaTime * fMagnitude * fDelayTimeCharge;
             if (direction != Vector3.zero)
                 Body.rotation = Quaternion.LookRotation(direction);
+            Body.position += (direction * Time.deltaTime * fEnergy * fMaxSpeed);
 			//Save current direction
 			currentDirection = direction.normalized;
 			//
@@ -79,6 +88,33 @@ public class PlayerLogic : MonoBehaviour
         fEnergy = Mathf.Clamp(fEnergy, 0, 1);
     }
 
+    void CheckForPowerInput(PLAYER player)
+    {
+        if (Input.GetButtonDown("FlipMoveSet" + (int)player))
+        {
+            if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) m_ActiveMoveset = MOVE_SET.OFFENSIVE;
+            else
+            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) m_ActiveMoveset = MOVE_SET.DEFFENSIVE;
+        }
+
+        if (Input.GetButtonDown("Stun/Slide" + (int)player))
+        {
+            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
+            {
+                LaunchPower(POWER.STUN);
+            }
+            else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE)
+            {
+                LaunchPower(POWER.CHAINED);
+            }
+        }
+
+        if (Input.GetButtonDown("Dash/Parry" + (int)player))
+        {
+            LaunchPower(POWER.DASH);
+        }
+    }
+
     void CheckInput(PLAYER playerInput)
     {
         Vector3 RightStick;
@@ -87,7 +123,7 @@ public class PlayerLogic : MonoBehaviour
         RightStick.z = Input.GetAxis("RVertical" + (int)playerInput);
 
         RightStick.Normalize();
-        Aim = RightStick;
+        Aim = RightStick.magnitude == 0.0f ? Aim : RightStick;
 
         Vector3 LeftStick;
         LeftStick.x = Input.GetAxis("LHorizontal" + (int)playerInput);
@@ -107,21 +143,39 @@ public class PlayerLogic : MonoBehaviour
 			MovePlayer (LeftStick);
 		}
 
-        if (Input.GetButtonDown("Stun/Chained"))
-        {
-            LaunchPower(POWER.STUN);
-        }
+        CheckForPowerInput(playerInput);
 
-        if (Input.GetButtonDown("Dash/Parry"))
-        {
-            LaunchPower(POWER.DASH);
-        }
-    }
+        }    }
 
     void Update()
     {
         CheckInput(m_PlayerNumber);
         SetColor();
+
+
+        if (GetGround()==null&& Body.gameObject.GetComponent<Rigidbody>().useGravity)
+        {
+            if(fEnergy>fHexPerSecond)
+            {
+                fTimeInAir += Time.deltaTime;
+                if (fTimeInAir > fHexPerSecond)
+                {
+                    SpeedScale = 0;
+                }
+            }
+        }
+        else
+        {
+            fTimeInAir = 0;
+        }
+
+        if( transform.GetChild(0).position.y<-3)
+        {
+           float fFalling = Mathf.Clamp( 7/170.0f * transform.GetChild(0).position.y + 191/170.0f,0.3f,1);
+            transform.GetChild(0).localScale = new Vector3(fFalling, fFalling, fFalling);
+            transform.GetChild(1).localScale = new Vector3(fFalling, fFalling, fFalling);
+        }
+
 
     }
 
@@ -138,7 +192,6 @@ public class PlayerLogic : MonoBehaviour
         GameState.GlobalGameState.PlayerKilled(m_PlayerNumber);
     }
 
-
 	void MoveStraight () 
 	{
 		Body.position += (currentDirection * Time.deltaTime * fMaxSpeed);
@@ -150,6 +203,8 @@ public class PlayerLogic : MonoBehaviour
         {
             case POWER.DASH:
                 Body.position += (Aim * fDashLength);
+                Body.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                StartCoroutine(GravityOff());
                 break;
             case POWER.STUN:
                 Instantiate<GameObject>(PowerPrefabs[0], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Strun_script>().Direction = Aim;
@@ -164,6 +219,13 @@ public class PlayerLogic : MonoBehaviour
 				break;
         }
 
+    }
+
+    IEnumerator GravityOff()
+    {
+        yield return new WaitForSeconds(fGravityDash);
+
+        Body.gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
 
     void SetColor()
@@ -188,6 +250,26 @@ public class PlayerLogic : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private Transform GetGround()
+    {
+        Vector3 feets = ownCollider.bounds.center;
+        feets -= Vector3.up * (ownCollider.bounds.extents.y * 0.99f);
+
+        RaycastHit rayInfo;
+
+        Debug.DrawLine(feets,feets-new Vector3(0,-groundDistance,0));
+
+        if (Physics.Raycast(feets,
+                            -Vector3.up,
+                            out rayInfo,
+                            groundDistance))
+        {
+            return rayInfo.collider.transform;
+        }
+
+        return null;
     }
 }
 

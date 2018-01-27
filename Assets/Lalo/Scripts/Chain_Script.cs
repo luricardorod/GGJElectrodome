@@ -7,6 +7,12 @@ public class Chain_Script : MonoBehaviour
     // How long will the power have inpact in the enemy.
     public float Duration;
 
+    // The movement limit for the chained character.
+    public SphereCollider Col;
+
+    private float ChainMagnitude;
+    private GameObject OtherPlayer;
+
     // The position where the player used the chain 
     [HideInInspector]
     public Vector3 StartPosition;
@@ -18,22 +24,37 @@ public class Chain_Script : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        Col.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (OtherPlayer)
+        {
+            Vector3 dist = OtherPlayer.transform.position - StartPosition;
+            if (dist.magnitude > Col.radius)
+            {
+                dist.Normalize();
+                dist *= Col.radius;
 
+                OtherPlayer.transform.position = StartPosition + dist;
+            }
+        }
     }
 
     // If the power made contact with the enemy.
     private void OnTriggerEnter(Collider other)
     {
+        OtherPlayer = other.gameObject;
         // We store the enemies position to set how far he can move.
         EndPosition = other.transform.position;
-        // TODO: make a vector between endpos and startpos, and take that vector's magnitude to make it the maximum distance the enemy can move from the startpos.
+        // Create a vector between the enemy and the initial pos of the chain.
         MaxDistanceToMove = EndPosition - StartPosition;
-        float dist = MaxDistanceToMove.magnitude;
+        // Set the boundary from where the chained character can move.
+        Col.center = StartPosition;
+        Col.radius = MaxDistanceToMove.magnitude;
+        ChainMagnitude = Col.radius;
+        Col.enabled = true;
     }
 }
