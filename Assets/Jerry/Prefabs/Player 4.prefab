@@ -582,7 +582,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &95350728637406282
 Animator:
@@ -875,6 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef31f33d472cafc42878d512a34527d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundEffect: []
   m_ACPlayerMov: {fileID: 0}
   m_ACDash: {fileID: 8300000, guid: 67097c9575b99504481959e709575b88, type: 3}
   m_ACShot: {fileID: 8300000, guid: acf7b4b1d293d164488531b96bcd21a4, type: 3}

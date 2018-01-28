@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b2e68e8f49e8b408e86439fd19809f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 2
+  lifeTime: 1
 --- !u!136 &136586524794962386
 CapsuleCollider:
   m_ObjectHideFlags: 1
