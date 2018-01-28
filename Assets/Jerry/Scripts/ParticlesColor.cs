@@ -25,6 +25,7 @@ public class ParticlesColor : MonoBehaviour {
 	private bool discharge = false;
 	private bool explosionToggled = false;
 	private float dischargedTime = 0.0f;
+	private bool canExplode = false;
 
 	void Start () {
 		ParticleSystem ps = GetComponent<ParticleSystem> ();
@@ -45,17 +46,19 @@ public class ParticlesColor : MonoBehaviour {
 	}
 
 	void Update() {
-
-		}
-if (pm.fEnergy == 0) {
+		
+		if (pm.fEnergy == 0 && canExplode) {
 			Discharge ();
 		}
 
-		GetComponent<ParticleSystem> ();		if (!discharge) {
+		GetComponent<ParticleSystem> ();
+		if (!discharge) {
+			if (pm.fEnergy > 0.0f) {
+				canExplode = true;
+			}
 			float emissionFactor = pm.fEnergy > 0.75f ? 2.0f - (1.0f - pm.fEnergy) : 1.0f;
 			emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (pm.fEnergy * maxEmissionRate * emissionFactor); 
-		} 
-		else {
+		} else {
 			//Debug.Log ("Explosion");
 			dischargedTime += Time.deltaTime;
 			if (dischargedTime > explosionDuration) {
@@ -78,6 +81,7 @@ if (pm.fEnergy == 0) {
 		SetColor(transform.GetChild (0).GetComponent<ParticleSystem> (), colorA, colorB);
 		colorOverLifeTimeMod.enabled = false;
 		mainMod.startSize = new ParticleSystem.MinMaxCurve (0.3f, 0.8f);
+		canExplode = false;
 	}
 
 	void Explode() 
