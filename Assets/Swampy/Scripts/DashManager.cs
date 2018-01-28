@@ -12,6 +12,8 @@ public class DashManager : MonoBehaviour
     private List<GameObject> PushedPlayers=new List<GameObject>() ;
     public void Dash(float DashDistance)
     {
+        GetComponent<AudioManager>().PlaySoundEffect(AudioManager.SOUND_EFFECT.DASH, 0.15f);
+
         MovementDir = GetComponent<PlayerInfo>().currentMovementDir;
         transform.position += MovementDir * DashDistance;
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;

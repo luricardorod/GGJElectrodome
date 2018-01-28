@@ -12,8 +12,10 @@ public class OverlordPower : MonoBehaviour {
 		Destroy (gameObject);
 	}
 
-	public void Init(PlayerInfo playerInf){
-		Quaternion q = new Quaternion();
+	public void Init(PlayerInfo playerInf, GameObject Summoner){
+        Debug.Log("Overlord summoned by: " + Summoner);
+        Summoner.GetComponent<AudioManager>().PlaySoundEffect(AudioManager.SOUND_EFFECT.LASER, 3.1f);
+        Quaternion q = new Quaternion();
 		q.SetLookRotation (playerInf.currentPointerDir);
 		transform.rotation = q;
 		playerInfo = playerInf;
