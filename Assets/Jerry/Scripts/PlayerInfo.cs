@@ -28,6 +28,7 @@ public class PlayerInfo : MonoBehaviour {
 
 	public float energy;
 	public bool isAlive;
+	public bool onGround;
 	public int number;
 	public int lives;
 	public Color color;
@@ -48,7 +49,7 @@ public class PlayerInfo : MonoBehaviour {
 	//public bool isAlive;
 	void Start()
 	{
-	
+		Init (0, Color.black, 30);
 	}
 
 	public void Init(int num, Color col, float speed) {

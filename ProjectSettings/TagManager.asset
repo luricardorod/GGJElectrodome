@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PlayerWrapper
   - Level
+  - Ground
+  - Shoot
   layers:
   - Default
   - TransparentFX
