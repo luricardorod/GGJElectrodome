@@ -35,14 +35,18 @@ public class PowersAdmin : MonoBehaviour {
 		if (reducedEnergyLvl <= playerInfo.energy) {
 			playerInfo.energy -= reducedEnergyLvl;
 			string name = System.Enum.GetName (power.GetType (), power);
-			Invoke (name, 0);
+
+            Debug.Log(name);
+            Invoke (name, 0);
 		}
 	}
 
-	void Dash()
-	{
-		
-	}
+    void Dash()
+    {
+        Debug.Log("Dash");
+        gameObject.AddComponent<DashManager>();
+        GetComponent<DashManager>().Dash(12);
+    }
 
 	void Parry()
 	{
