@@ -799,13 +799,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powersPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4967223437904134, guid: 50655182acab30743a27b6bf28fceb02, type: 2}
+  - {fileID: 4967223437904134, guid: 50655182acab30743a27b6bf28fceb02, type: 2}
+  - {fileID: 4967223437904134, guid: 50655182acab30743a27b6bf28fceb02, type: 2}
   - {fileID: 4656088570592658, guid: 9ae8b571ccea8a04a84a6d7f2433f78b, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4967223437904134, guid: 50655182acab30743a27b6bf28fceb02, type: 2}
+  - {fileID: 4967223437904134, guid: 50655182acab30743a27b6bf28fceb02, type: 2}
+  - {fileID: 4967223437904134, guid: 50655182acab30743a27b6bf28fceb02, type: 2}
   - {fileID: 4739630543899488, guid: 7347306720a22da43aeae1b03735f1bf, type: 2}
 --- !u!114 &114273420746453548
 MonoBehaviour:
