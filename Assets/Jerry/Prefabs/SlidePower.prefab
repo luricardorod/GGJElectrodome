@@ -51,7 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ed6249c3bc1fd4a9f5362796764c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decalsPlaceableCount: 4
-  placeRate: 0.5
-  decal: {fileID: 4413361322000702, guid: e5f4ce8bbd1faa94994f7c8e1bbf4258, type: 2}
+  spawnDistance: 2
+  decal: {fileID: 4650497750706778, guid: 9366d9ed39efe0a4da3f8b6e250f2e44, type: 2}
+  fLiveTime: 3
   attachedObj: {fileID: 0}
+  startPos: {x: 0, y: 0, z: 0}

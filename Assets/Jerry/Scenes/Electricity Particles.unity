@@ -203,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 630143842}
   m_Layer: 0
-  m_Name: spawnSlide
+  m_Name: SpawnSlide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,8 +215,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 630143841}
-  m_LocalRotation: {x: -0, y: -0.117030874, z: -0, w: 0.9931283}
-  m_LocalPosition: {x: 0.58, y: 0, z: -2.44}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.4, z: -2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1085295459}
@@ -253,19 +253,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4190039223683762, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4190039223683762, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.117030874
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4190039223683762, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4190039223683762, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9931283
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4190039223683762, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
       propertyPath: m_RootOrder
@@ -360,11 +360,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4506782832188526, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4966887805901954, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4478176274867614, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
       propertyPath: m_RootOrder
@@ -373,6 +373,10 @@ Prefab:
     - target: {fileID: 4478176274867614, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
       propertyPath: m_LocalPosition.y
       value: 2.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190039223683762, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
