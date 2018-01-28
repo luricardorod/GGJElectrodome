@@ -38,7 +38,12 @@ public class PlayerLogic : MonoBehaviour
     public Transform Body;
 
     bool m_Active;
-
+    public float fVecinity = 5.0f;
+    private Vector3 PushDirection;
+    public bool BeingPushed = false;
+    public float fMaxPushTime = 1.0f;
+    private float fPushTime = 0.0f;
+    public float fPushForce = 10.0f;
     public float groundDistance = 0.1f;
     public GameObject[] PowerPrefabs;
     public float fDashLength = 10.0f;
@@ -46,12 +51,12 @@ public class PlayerLogic : MonoBehaviour
     public float fMaxSpeed = 20;
     public float fScaleEnergy = 0.4f;
     public float fGainEnergy = 0.4f;
-    public float fOffsetMinEnergy = 1.2f;
-    public float fDelayTimeCharge = 0.5f;
+    public float fOffsetMinEnergy = 1.1f;
+    public float fDelayTimeCharge = 3f;
     public float fDelayLooseEnergy = 0.001f;
     private float fStopTime = 0;
     private float fAngle = 0;
-    private float fGravityDash = 0.5f;
+    private float fGravityDash = 0.2f;
 	public bool lockMovement = false;
 	public bool lockDirection = false;
 	private Vector3 currentDirection;
@@ -190,6 +195,15 @@ public class PlayerLogic : MonoBehaviour
 
     void Update() {
         if (m_Active) {
+            if (fPushTime < fMaxPushTime&&BeingPushed==true)
+            {
+                transform.position += PushDirection * fPushForce * Time.deltaTime;
+                fPushTime += Time.deltaTime;
+            }
+            else
+            {
+                BeingPushed = false;
+            }
             CheckInput(m_PlayerNumber);
             SetColor();
 
@@ -197,7 +211,7 @@ public class PlayerLogic : MonoBehaviour
                 if (fEnergy > fHexPerSecond) {
                     fTimeInAir += Time.deltaTime;
                     if (fTimeInAir > fHexPerSecond) {
-                        SpeedScale = 0;
+                        //SpeedScale = 0.5f;
                     }
                 }
             }
@@ -230,13 +244,35 @@ public class PlayerLogic : MonoBehaviour
 		Body.position += (currentDirection * Time.deltaTime * fMaxSpeed);
 	}
 
+    void Push(Vector3 Direction)
+    {
+        fPushTime = 0;
+        BeingPushed = true;
+        PushDirection = Direction;
+    }
+
     public void LaunchPower(POWER powerToFire) {
         switch (powerToFire)
         {
             case POWER.DASH:
                 Body.position += (Aim * fDashLength);
                 Body.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                 
+                GameObject[] OtherPlayers = GameObject.FindGameObjectsWithTag("PlayerWrapper");
                 StartCoroutine(GravityOff());
+                foreach (GameObject Player in OtherPlayers)
+                {
+                    if (Player != transform.gameObject)
+                    {
+                        if ((Player.transform.GetChild(0).position - transform.GetChild(0).position).magnitude < fVecinity)
+                        {
+                            Debug.Log("Im colliding with a Player");
+                            Player.GetComponent<PlayerLogic>().Push(Aim.normalized);
+                        }
+                    }
+
+                }
+
                 break;
             case POWER.STUN:
                 Instantiate<GameObject>(PowerPrefabs[0], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Strun_script>().Direction = Aim;
