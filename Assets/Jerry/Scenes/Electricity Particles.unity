@@ -250,6 +250,21 @@ Prefab:
       value: 
       objectReference: {fileID: 1670613552957736, guid: 9ae8b571ccea8a04a84a6d7f2433f78b,
         type: 2}
+    - target: {fileID: 114792869400396396, guid: b3d018d7ba32d0a40b0b5f4a73d0be38,
+        type: 2}
+      propertyPath: fScaleEnergy
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114792869400396396, guid: b3d018d7ba32d0a40b0b5f4a73d0be38,
+        type: 2}
+      propertyPath: fOffsetMinEnergy
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114792869400396396, guid: b3d018d7ba32d0a40b0b5f4a73d0be38,
+        type: 2}
+      propertyPath: fDelayTimeCharge
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
   m_IsPrefabParent: 0

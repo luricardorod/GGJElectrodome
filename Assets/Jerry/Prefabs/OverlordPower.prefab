@@ -53,6 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4739630543899488}
+  - component: {fileID: 114224103581419260}
   m_Layer: 0
   m_Name: OverlordPower
   m_TagString: Untagged
@@ -148,7 +149,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b2e68e8f49e8b408e86439fd19809f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invokerObj: {fileID: 0}
+  lifeTime: 0
+--- !u!114 &114224103581419260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1428486299181386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b2e68e8f49e8b408e86439fd19809f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 2
 --- !u!198 &198493687233262044
 ParticleSystem:
   m_ObjectHideFlags: 1

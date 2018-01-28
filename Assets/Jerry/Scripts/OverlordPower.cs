@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class OverlordPower : MonoBehaviour {
-
-	[HideInInspector]public Transform invokerObj;
-	[HideInInspector]public PlayerLogic pl;
+	private PlayerLogic pl;
+	public float lifeTime;
 	// Use this for initialization
 	void Start () {
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		Quaternion q = new Quaternion ();
-		q.SetLookRotation (pl.Aim);
-		transform.position = invokerObj.position;
-		transform.rotation = q;
+	void DestroyMe(){
+		pl.lockDirection = false;
+		pl.lockMovement = false;
+		Destroy (gameObject);
 	}
+
+	public void SetPlayerLogic(PlayerLogic plo){
+		pl = plo;
+		Invoke ("DestroyMe", lifeTime);
+	}
+	// Update is called once per frame
 }

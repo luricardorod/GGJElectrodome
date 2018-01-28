@@ -52,7 +52,8 @@ public class PlayerLogic : MonoBehaviour
     private float fStopTime = 0;
     private float fAngle = 0;
     private float fGravityDash = 0.5f;
-	[HideInInspector]public bool lockDirection = false;
+	public bool lockMovement = false;
+	public bool lockDirection = false;
 	private Vector3 currentDirection;
     public float SpeedScale = 1;
     private SphereCollider ownCollider;
@@ -87,7 +88,7 @@ public class PlayerLogic : MonoBehaviour
         }
         else {
             fStopTime += Time.deltaTime;
-            fEnergy -= fStopTime * fStopTime * fDelayLooseEnergy;
+            //fEnergy -= fStopTime * fStopTime * fDelayLooseEnergy;
         }
         fEnergy = Mathf.Clamp(fEnergy, 0.05f, 1);
     }
@@ -115,7 +116,7 @@ public class PlayerLogic : MonoBehaviour
                 LaunchPower(POWER.STUN);
             }
             else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) {
-                LaunchPower(POWER.CHAINED);
+                LaunchPower(POWER.SLIDE);
             }
         }
 
@@ -123,28 +124,45 @@ public class PlayerLogic : MonoBehaviour
             fEnergy = Mathf.Max(fEnergy - Level1Energy, 0.0f);
             LaunchPower(POWER.DASH);
         }
+
+		if(Input.GetButtonDown("Bomb/Overlord" + (int)player) && fEnergy >= Level4Energy) {
+			fEnergy = Mathf.Max(fEnergy - Level4Energy, 0.0f);
+
+			if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) {
+				LaunchPower(POWER.OVERLORD);
+			}
+			else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) {
+				LaunchPower(POWER.BOMB);
+			}
+		}
     }
 
     void CheckInput(PLAYER playerInput) {
-        Vector3 RightStick;
-        RightStick.x = Input.GetAxis("RHorizontal" + (int)playerInput);
-        RightStick.y = 0;
-        RightStick.z = Input.GetAxis("RVertical" + (int)playerInput);
+        
+		if (!lockDirection) {
+			Vector3 RightStick;
 
-        RightStick.Normalize();
-        Aim = RightStick.magnitude == 0.0f ? Aim : RightStick;
+			RightStick.x = Input.GetAxis ("RHorizontal" + (int)playerInput);
+			RightStick.y = 0;
+			RightStick.z = Input.GetAxis ("RVertical" + (int)playerInput);
 
+			RightStick.Normalize ();
+
+			Aim = RightStick.magnitude == 0.0f ? Aim : RightStick;
+
+			//Move the pointer.
+			Pointer.LookAt(Pointer.position + RightStick);
+		}
         Vector3 LeftStick;
         LeftStick.x = Input.GetAxis("LHorizontal" + (int)playerInput);
         LeftStick.y = 0;
         LeftStick.z = Input.GetAxis("LVertical" + (int)playerInput);
 
-        //Move the pointer.
-        Pointer.LookAt(Pointer.position + RightStick);
-
         //Move the Player
-		if (lockDirection) {
-			MoveStraight ();
+		if (lockMovement ) {
+			if (!lockDirection) {
+				MoveStraight ();	
+			}
 		} 
 		else {
 			MovePlayer (LeftStick);
@@ -211,9 +229,13 @@ public class PlayerLogic : MonoBehaviour
                 Instantiate<GameObject>(PowerPrefabs[1], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Chain_Script>().StartPosition = transform.position;
                 break;
 			case POWER.OVERLORD:
-				OverlordPower op = Instantiate<GameObject> (PowerPrefabs [2], Body.position, Quaternion.identity).transform.GetChild(0).GetComponent<OverlordPower>();
-				op.invokerObj = transform.GetChild(0);
-				op.pl = this;
+				OverlordPower op = Instantiate(PowerPrefabs [2], Body.position, Quaternion.identity).GetComponent<OverlordPower> ();
+				op.SetPlayerLogic (this);
+				Quaternion q = new Quaternion ();
+				q.SetLookRotation (Aim);
+				op.transform.rotation = q;
+				lockMovement = true;
+				lockDirection = true;
 				break;
         }
 
