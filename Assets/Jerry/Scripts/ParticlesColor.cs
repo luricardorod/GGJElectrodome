@@ -13,8 +13,10 @@ public class ParticlesColor : MonoBehaviour {
 	public float explosionDuration;
 	public Transform attachedObj;
 	public float maxEmissionRate = 10.0f;
-	public Color colorA;
-	public Color colorB;
+	public Color colorAUncharged;
+	public Color colorBUncharged;
+	public Color colorACharged;
+	public Color colorBCharged;
 	public Color explodeA;
 	public Color explodeB;
 	private	ParticleSystem.EmissionModule emissionMod;
@@ -35,14 +37,16 @@ public class ParticlesColor : MonoBehaviour {
 		shapeMod = ps.shape;
 		mainMod = ps.main;
 		colorOverLifeTimeMod = ps.colorOverLifetime;
-		colorA.a = 1.0F;
-		colorB.a = 1.0F;
+		colorACharged.a = 1.0F;
+		colorBCharged.a = 1.0F;
+		colorAUncharged.a = 1.0F;
+		colorBUncharged.a = 1.0F;
 		explodeA.a = 1.0F;
 		explodeB.a = 1.0F;
 		ParticleSystem.TrailModule trailMod = ps.trails;
-		trailMod.colorOverLifetime = new ParticleSystem.MinMaxGradient(colorA);
-		SetColor (GetComponent<ParticleSystem> (), colorA, colorB);
-		SetColor(transform.GetChild (0).GetComponent<ParticleSystem> (), colorA, colorB);
+		trailMod.colorOverLifetime = new ParticleSystem.MinMaxGradient(colorACharged);
+		SetColor (GetComponent<ParticleSystem> (), colorAUncharged, colorBUncharged);
+		SetColor(transform.GetChild (0).GetComponent<ParticleSystem> (), colorAUncharged, colorBUncharged);
 	}
 
 	void Update() {
@@ -56,6 +60,13 @@ public class ParticlesColor : MonoBehaviour {
 			if (pm.fEnergy > 0.0f) {
 				canExplode = true;
 			}
+
+			Color aLerped = Color.Lerp (colorAUncharged, colorACharged, pm.fEnergy);
+			Color bLerped = Color.Lerp (colorBUncharged, colorBCharged, pm.fEnergy);
+
+			SetColor (GetComponent<ParticleSystem> (), aLerped, bLerped);
+			SetColor(transform.GetChild (0).GetComponent<ParticleSystem> (), aLerped, bLerped);
+		
 			float emissionFactor = pm.fEnergy > 0.75f ? 2.0f - (1.0f - pm.fEnergy) : 1.0f;
 			emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (pm.fEnergy * maxEmissionRate * emissionFactor); 
 		} else {
@@ -77,8 +88,8 @@ public class ParticlesColor : MonoBehaviour {
 		discharge = false;
 		noiseMod.strength = new ParticleSystem.MinMaxCurve (4.0f, 6.0f);
 		emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (50.0f);
-		SetColor (GetComponent<ParticleSystem> (), colorA, colorB);
-		SetColor(transform.GetChild (0).GetComponent<ParticleSystem> (), colorA, colorB);
+		SetColor (GetComponent<ParticleSystem> (), colorAUncharged, colorBUncharged);
+		SetColor(transform.GetChild (0).GetComponent<ParticleSystem> (), colorAUncharged, colorBUncharged);
 		colorOverLifeTimeMod.enabled = false;
 		mainMod.startSize = new ParticleSystem.MinMaxCurve (0.3f, 0.8f);
 		canExplode = false;

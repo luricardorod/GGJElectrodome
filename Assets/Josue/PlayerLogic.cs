@@ -88,7 +88,7 @@ public class PlayerLogic : MonoBehaviour
         }
         else {
             fStopTime += Time.deltaTime;
-            //fEnergy -= fStopTime * fStopTime * fDelayLooseEnergy;
+            fEnergy -= fStopTime * fStopTime * fDelayLooseEnergy;
         }
         fEnergy = Mathf.Clamp(fEnergy, 0.05f, 1);
     }
@@ -113,7 +113,12 @@ public class PlayerLogic : MonoBehaviour
         if (Input.GetButtonDown("Stun/Slide" + (int)player) && fEnergy >= Level2Energy) {
             fEnergy = Mathf.Max(fEnergy - Level2Energy, 0.0f);
             if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) {
-                LaunchPower(POWER.STUN);
+				///////////////////////////////////////////////////
+				///////////////////////////////////////////////////
+				///////////////////////////////////////////////////
+				/// CAMBIAR A STUN
+				//////////////////////////////////////////////////
+				LaunchPower(POWER.SLIDE);
             }
             else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) {
                 LaunchPower(POWER.SLIDE);
@@ -226,8 +231,13 @@ public class PlayerLogic : MonoBehaviour
                 Instantiate<GameObject>(PowerPrefabs[0], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Strun_script>().Direction = Aim;
                 break;
             case POWER.CHAINED:
-                Instantiate<GameObject>(PowerPrefabs[1], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Chain_Script>().StartPosition = transform.position;
+                Instantiate<GameObject>(PowerPrefabs[3], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Chain_Script>().StartPosition = transform.position;
                 break;
+		case POWER.SLIDE:
+			SlidePower sp = Instantiate (PowerPrefabs [1], Vector3.zero, Quaternion.identity).GetComponent<SlidePower> ();
+			sp.attachedObj = transform.GetChild (0);
+
+			break;
 			case POWER.OVERLORD:
 				OverlordPower op = Instantiate(PowerPrefabs [2], Body.position, Quaternion.identity).GetComponent<OverlordPower> ();
 				op.SetPlayerLogic (this);
