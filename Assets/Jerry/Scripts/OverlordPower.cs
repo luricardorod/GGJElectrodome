@@ -22,6 +22,11 @@ public class OverlordPower : MonoBehaviour {
 		Invoke ("DestroyMe", lifeTime);
 	}
 
-
+	void OnTriggerEnter(Collider col)
+	{
+		if (col.tag == "Player") {
+			Destroy (col.transform.parent.gameObject);
+		}
+	}
 
 }
