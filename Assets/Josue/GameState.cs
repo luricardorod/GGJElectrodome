@@ -29,6 +29,7 @@ public enum PLAYER
 
 public class GameState : MonoBehaviour
 {
+    Color[] colores = new Color[4];
     private int LastLevel=-1;
     public static GameState GlobalGameState;
     public int MaxScore=5;
@@ -43,6 +44,13 @@ public class GameState : MonoBehaviour
     uint m_StartingPlayers;
     uint m_NumberOfPlayersAlive;
 
+    private void Start()
+    {
+        colores[0] = Color.red;
+        colores[1] = Color.green;
+        colores[2] = Color.yellow;
+        colores[3] = Color.magenta;
+    }
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -55,7 +63,8 @@ public class GameState : MonoBehaviour
         for (int i = 0; i < (int)PLAYER.PLAYER_MAX; ++i)
         {
             m_PlayerPool[i] = Instantiate<GameObject>(playerPrefab);
-            m_PlayerPool[i].GetComponent<PlayerLogic>().m_PlayerNumber = (PLAYER)i;
+            //m_PlayerPool[i].GetComponent<PlayerLogic>().m_PlayerNumber = (PLAYER)i;
+            m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().Init(i,colores[i],30);
             m_PlayerPool[i].gameObject.SetActive(false);
         }
 
@@ -80,7 +89,7 @@ public class GameState : MonoBehaviour
        {
            randlevel = Random.Range(0, GetComponent<LevelLoader>().Levels.Count - 1);
        }
-LastLevel=randLevel;
+LastLevel=randlevel;
        GetComponent<LevelLoader>().SetLevel(randlevel);
        Level = GameObject.FindGameObjectWithTag("Level");
        int spawnindex = 0;
@@ -90,7 +99,7 @@ LastLevel=randLevel;
            Player.transform.rotation = Level.transform.GetChild(spawnindex).transform.rotation;
            Player.transform.localScale = Level.transform.GetChild(spawnindex).transform.localScale;
            Player.gameObject.SetActive(true);
-           Player.gameObject.GetComponent<PlayerLogic>().enabled = false;
+           Player.transform.GetChild(0).GetComponent<InputManager>().enabled = false;
            ++spawnindex;
        }
        Invoke("WaitToMove",3);
@@ -100,8 +109,8 @@ LastLevel=randLevel;
     {
       foreach (GameObject Player in m_PlayerPool)
       {
-          Player.gameObject.GetComponent<PlayerLogic>().enabled = true;
-      }
+            Player.transform.GetChild(0).GetComponent<InputManager>().enabled = true;
+        }
         m_State = GAME_STATE.PLAYING;
     }
 
@@ -132,18 +141,18 @@ LastLevel=randLevel;
     {
         for(int index=0;index<4;++index)
         {
-            /* if(!m_PlayerPool[index].GetComponent<PlayerInfo>().isAlive)
+            if(!m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().isAlive)
              {
-                 if (m_PlayerPool[index].GetComponent<PlayerInfo>().Lives>0)
+                 if (m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().lives>0)
                  {
                      m_PlayerPool[index].transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = true;
                      m_PlayerPool[index].transform.position = Level.transform.GetChild(index).transform.position;
                      m_PlayerPool[index].transform.rotation = Level.transform.GetChild(index).transform.rotation;
                      m_PlayerPool[index].transform.localScale = Level.transform.GetChild(index).transform.localScale;
-                     --m_PlayerPool[index].GetComponent<PlayerInfo>().Lives;
+                     --m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().lives;
                      m_PlayerPool[index].transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
                  }
-        }*/
+        }
      }
 
         //Fuck you tho
