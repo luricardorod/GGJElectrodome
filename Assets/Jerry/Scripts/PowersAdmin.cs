@@ -70,8 +70,15 @@ public class PowersAdmin : MonoBehaviour {
 
 	void Barrier()
 	{
-		
-	}
+        Vector3 barrierPos = transform.position;
+        barrierPos.y -= 2.0f;
+
+        Barrier_Script barrier = Instantiate(powersPrefabs[(int)Powers.Barrier],
+                                    barrierPos + playerInfo.currentPointerDir * 3.0f,
+                                    Quaternion.identity).GetComponent<Barrier_Script>();
+
+        barrier.Init(playerInfo);
+    }
 
 	void Bomb()
 	{
