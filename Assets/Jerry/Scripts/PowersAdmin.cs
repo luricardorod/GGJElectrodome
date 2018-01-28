@@ -89,6 +89,6 @@ public class PowersAdmin : MonoBehaviour {
         OverlordPower op = Instantiate (powersPrefabs [(int)Powers.Overlord], 
 										transform.position, 
 										Quaternion.identity).GetComponent<OverlordPower>();
-		op.Init (playerInfo);
+		op.Init (playerInfo, transform.gameObject);
 	}
 }
