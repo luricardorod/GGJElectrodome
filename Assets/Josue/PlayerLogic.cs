@@ -5,8 +5,7 @@ using UnityEngine;
 public enum MOVE_SET
 {
     OFFENSIVE,
-    DEFFENSIVE,
-    MOVE_SET_MAX
+    DEFFENSIVE
 }
 
 public enum POWER
@@ -30,7 +29,8 @@ public class PlayerLogic : MonoBehaviour
     public PLAYER m_PlayerNumber;
     public GameObject TrailPrefab;
 
-	[HideInInspector]public Vector3 Aim;
+    [HideInInspector]
+    public Vector3 Aim;
 
     MOVE_SET m_ActiveMoveset;
 
@@ -52,17 +52,18 @@ public class PlayerLogic : MonoBehaviour
     private float fStopTime = 0;
     private float fAngle = 0;
     private float fGravityDash = 0.5f;
-	public bool lockMovement = false;
-	public bool lockDirection = false;
-	private Vector3 currentDirection;
+    public bool lockMovement = false;
+    public bool lockDirection = false;
+    private Vector3 currentDirection;
     public float SpeedScale = 1;
     private SphereCollider ownCollider;
-    private float fHexPerSecond = (1/5.0f);
+    private float fHexPerSecond = (1 / 5.0f);
     private float fTimeInAir = 0.0f;
     private Vector3 vec3PastBodyPosition;
     public float fMinReqMove = 0.01f;
 
-    void Start() {
+    void Start()
+    {
         Live();
 
         m_ActiveMoveset = MOVE_SET.OFFENSIVE;
@@ -71,9 +72,12 @@ public class PlayerLogic : MonoBehaviour
         ownCollider = GetComponentInChildren<SphereCollider>();
     }
 
-    void MovePlayer(Vector3 displacement) {
-        if (displacement.magnitude > 0) {
-            if (displacement != Vector3.zero) {
+    void MovePlayer(Vector3 displacement)
+    {
+        if (displacement.magnitude > 0)
+        {
+            if (displacement != Vector3.zero)
+            {
                 Body.rotation = Quaternion.LookRotation(displacement);
             }
 
@@ -82,115 +86,154 @@ public class PlayerLogic : MonoBehaviour
             vec3PastBodyPosition = Body.position;
             Body.position += (displacement * Time.deltaTime * fEnergy * fMaxSpeed * SpeedScale);
             float movedMagnitude = (vec3PastBodyPosition - Body.position).magnitude;
-            if (movedMagnitude > fMinReqMove) {
+            if (movedMagnitude > fMinReqMove)
+            {
                 fEnergy += Mathf.Pow((fOffsetMinEnergy - fEnergy), (fEnergy + fGainEnergy)) * (fScaleEnergy) * Time.deltaTime * movedMagnitude * fDelayTimeCharge;
             }
         }
-        else {
+        else
+        {
             fStopTime += Time.deltaTime;
             fEnergy -= fStopTime * fStopTime * fDelayLooseEnergy;
         }
         fEnergy = Mathf.Clamp(fEnergy, 0.05f, 1);
     }
 
-    void CheckForPowerInput(PLAYER player) {
+    void CheckForPowerInput(PLAYER player)
+    {
         const float Level1Energy = 0.25f;
         const float Level2Energy = 0.5f;
         const float Level3Energy = 0.75f;
         const float Level4Energy = 1.00f;
 
-        if (Input.GetButtonDown("FlipMoveSet" + (int)player)) {
-            if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE){
+        if (Input.GetButtonDown("FlipMoveSet" + (int)player))
+        {
+            if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE)
+            {
                 m_ActiveMoveset = MOVE_SET.OFFENSIVE;
             }
-            else {
-                if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) {
-                    m_ActiveMoveset = MOVE_SET.DEFFENSIVE;
-                }
+            else
+            {
+                m_ActiveMoveset = MOVE_SET.DEFFENSIVE;
             }
         }
 
-        if (Input.GetButtonDown("Stun/Slide" + (int)player) && fEnergy >= Level2Energy) {
+        if (Input.GetButtonDown("Stun/Slide" + (int)player) && fEnergy >= Level2Energy)
+        {
             fEnergy = Mathf.Max(fEnergy - Level2Energy, 0.0f);
-            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) {
-				///////////////////////////////////////////////////
-				///////////////////////////////////////////////////
-				///////////////////////////////////////////////////
-				/// CAMBIAR A STUN
-				//////////////////////////////////////////////////
-				LaunchPower(POWER.SLIDE);
+            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
+            {
+                LaunchPower(POWER.STUN);
             }
-            else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) {
+            else
+            {
                 LaunchPower(POWER.SLIDE);
             }
         }
 
-        if (Input.GetButtonDown("Dash/Parry" + (int)player) && fEnergy >= Level1Energy) {
+        if (Input.GetButtonDown("Dash/Parry" + (int)player) && fEnergy >= Level1Energy)
+        {
             fEnergy = Mathf.Max(fEnergy - Level1Energy, 0.0f);
-            LaunchPower(POWER.DASH);
+
+            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
+            {
+                LaunchPower(POWER.DASH);
+            }
+            else
+            {
+                LaunchPower(POWER.PARRY);
+            }
         }
 
-		if(Input.GetButtonDown("Bomb/Overlord" + (int)player) && fEnergy >= Level4Energy) {
-			fEnergy = Mathf.Max(fEnergy - Level4Energy, 0.0f);
+        if (Input.GetButtonDown("Barrier/Chained" + (int)player) && fEnergy >= Level3Energy)
+        {
+            fEnergy = Mathf.Max(fEnergy - Level3Energy, 0.0f);
 
-			if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) {
-				LaunchPower(POWER.OVERLORD);
-			}
-			else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) {
-				LaunchPower(POWER.BOMB);
-			}
-		}
+            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
+            {
+                LaunchPower(POWER.CHAINED);
+            }
+            else
+            {
+                LaunchPower(POWER.BARRIER);
+            }
+        }
+
+        if (Input.GetButtonDown("Bomb/Overlord" + (int)player) && fEnergy >= Level4Energy)
+        {
+            fEnergy = Mathf.Max(fEnergy - Level4Energy, 0.0f);
+
+            if (m_ActiveMoveset == MOVE_SET.OFFENSIVE)
+            {
+                LaunchPower(POWER.OVERLORD);
+            }
+            else
+            {
+                LaunchPower(POWER.BOMB);
+            }
+        }
     }
 
-    void CheckInput(PLAYER playerInput) {
-        
-		if (!lockDirection) {
-			Vector3 RightStick;
+    void CheckInput(PLAYER playerInput)
+    {
+        if (!lockDirection)
+        {
+            Vector3 RightStick;
 
-			RightStick.x = Input.GetAxis ("RHorizontal" + (int)playerInput);
-			RightStick.y = 0;
-			RightStick.z = Input.GetAxis ("RVertical" + (int)playerInput);
+            RightStick.x = Input.GetAxis("RHorizontal" + (int)playerInput);
+            RightStick.y = 0;
+            RightStick.z = Input.GetAxis("RVertical" + (int)playerInput);
 
-			RightStick.Normalize ();
+            RightStick.Normalize();
 
-			Aim = RightStick.magnitude == 0.0f ? Aim : RightStick;
+            Aim = RightStick.magnitude == 0.0f ? Aim : RightStick;
 
-			//Move the pointer.
-			Pointer.LookAt(Pointer.position + RightStick);
-		}
+            //Move the pointer.
+            Pointer.LookAt(Pointer.position + RightStick);
+        }
+
         Vector3 LeftStick;
         LeftStick.x = Input.GetAxis("LHorizontal" + (int)playerInput);
         LeftStick.y = 0;
         LeftStick.z = Input.GetAxis("LVertical" + (int)playerInput);
 
         //Move the Player
-		if (lockMovement ) {
-			if (!lockDirection) {
-				MoveStraight ();	
-			}
-		} 
-		else {
-			MovePlayer (LeftStick);
+        if (lockMovement)
+        {
+            if (!lockDirection)
+            {
+                MoveStraight();
+            }
+        }
+        else
+        {
+            MovePlayer(LeftStick);
             currentDirection = LeftStick.normalized;
         }
 
         CheckForPowerInput(playerInput);
     }
 
-    void Update() {
-        if (m_Active) {
+    void Update()
+    {
+        if (m_Active)
+        {
             CheckInput(m_PlayerNumber);
             SetColor();
 
-            if (GetGround() == null && Body.gameObject.GetComponent<Rigidbody>().useGravity) {
-                if (fEnergy > fHexPerSecond) {
+            if (GetGround() == null && Body.gameObject.GetComponent<Rigidbody>().useGravity)
+            {
+                if (fEnergy > fHexPerSecond)
+                {
                     fTimeInAir += Time.deltaTime;
-                    if (fTimeInAir > fHexPerSecond) {
+                    if (fTimeInAir > fHexPerSecond)
+                    {
                         SpeedScale = 0;
                     }
                 }
             }
-            else {
+            else
+            {
                 fTimeInAir = 0;
             }
 
@@ -204,22 +247,26 @@ public class PlayerLogic : MonoBehaviour
         }
     }
 
-    void Live() {
+    void Live()
+    {
         fEnergy = 0.0f;
         m_ActiveMoveset = MOVE_SET.OFFENSIVE;
         m_Active = true;
     }
 
-    public void Die() {
+    public void Die()
+    {
         m_Active = false;
         GameState.GlobalGameState.PlayerKilled(m_PlayerNumber);
     }
 
-	void MoveStraight ()  {
-		Body.position += (currentDirection * Time.deltaTime * fMaxSpeed);
-	}
+    void MoveStraight()
+    {
+        Body.position += (currentDirection * Time.deltaTime * fMaxSpeed);
+    }
 
-    public void LaunchPower(POWER powerToFire) {
+    public void LaunchPower(POWER powerToFire)
+    {
         switch (powerToFire)
         {
             case POWER.DASH:
@@ -233,31 +280,39 @@ public class PlayerLogic : MonoBehaviour
             case POWER.CHAINED:
                 Instantiate<GameObject>(PowerPrefabs[3], Body.position + Aim * 2.0f, Quaternion.identity).GetComponent<Chain_Script>().StartPosition = transform.position;
                 break;
-		case POWER.SLIDE:
-			SlidePower sp = Instantiate (PowerPrefabs [1], Vector3.zero, Quaternion.identity).GetComponent<SlidePower> ();
-			sp.attachedObj = transform.GetChild (0);
 
-			break;
-			case POWER.OVERLORD:
-				OverlordPower op = Instantiate(PowerPrefabs [2], Body.position, Quaternion.identity).GetComponent<OverlordPower> ();
-				op.SetPlayerLogic (this);
-				Quaternion q = new Quaternion ();
-				q.SetLookRotation (Aim);
-				op.transform.rotation = q;
-				lockMovement = true;
-				lockDirection = true;
-				break;
+            case POWER.BARRIER:
+                GameObject BarrierObj = Instantiate<GameObject>(PowerPrefabs[2], Body.position + Aim * 3.0f, Quaternion.identity);
+                BarrierObj.transform.LookAt(Body.position + Aim * 5.0f);
+                break;
+
+            case POWER.SLIDE:
+                SlidePower sp = Instantiate(PowerPrefabs[1], Vector3.zero, Quaternion.identity).GetComponent<SlidePower>();
+                sp.attachedObj = transform.GetChild(0);
+
+                break;
+            case POWER.OVERLORD:
+                OverlordPower op = Instantiate(PowerPrefabs[2], Body.position, Quaternion.identity).GetComponent<OverlordPower>();
+                op.SetPlayerLogic(this);
+                Quaternion q = new Quaternion();
+                q.SetLookRotation(Aim);
+                op.transform.rotation = q;
+                lockMovement = true;
+                lockDirection = true;
+                break;
         }
 
     }
 
-    IEnumerator GravityOff() {
+    IEnumerator GravityOff()
+    {
         yield return new WaitForSeconds(fGravityDash);
 
         Body.gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
 
-    void SetColor() {
+    void SetColor()
+    {
         var player = gameObject.GetComponent<PlayerLogic>().m_PlayerNumber;
 
         Debug.Log(player.ToString());
@@ -287,7 +342,7 @@ public class PlayerLogic : MonoBehaviour
 
         RaycastHit rayInfo;
 
-        Debug.DrawLine(feets,feets-new Vector3(0,-groundDistance,0));
+        Debug.DrawLine(feets, feets - new Vector3(0, -groundDistance, 0));
 
         if (Physics.Raycast(feets,
                             -Vector3.up,
