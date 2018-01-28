@@ -5,6 +5,7 @@ using UnityEngine;
 public class Slide : MonoBehaviour {
 
 	public float boostSpeed = 1.5f;
+	public float fLiveTime;
 	PlayerLogic pl;
 	float maxSpeed;
 	// Use this for initialization
@@ -14,7 +15,10 @@ public class Slide : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		fLiveTime -= Time.deltaTime;
+		if (fLiveTime < 0) {
+			Destroy (gameObject);
+		}
 	}
 
 	void OnTriggerEnter(Collider collider) {
