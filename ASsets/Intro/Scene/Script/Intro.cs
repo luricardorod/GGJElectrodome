@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class Intro : MonoBehaviour {
 
     public float AnimationTime;
-    public GameObject text;
-
     private float Timer;
 
     private Animator animater;
@@ -26,7 +24,6 @@ public class Intro : MonoBehaviour {
         {
             Debug.Log("uuuuuuuuuuuuuuuuu");
 
-            text.SetActive(true);
             if (Input.anyKeyDown)
             {
                 Debug.Log("dsfsdfs");
