@@ -61,6 +61,10 @@ public class PowersAdmin : MonoBehaviour {
 
 	void Chain()
 	{
+		ChainPower cp = Instantiate(powersPrefabs[(int)Powers.Chain], 
+									playerInfo.transform.position + playerInfo.currentPointerDir * 2, 
+									Quaternion.identity).GetComponent<ChainPower>();
+		cp.Init (playerInfo.currentPointerDir, playerInfo.transform.position);
 	}
 
 	void Slide()

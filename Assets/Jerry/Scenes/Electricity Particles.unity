@@ -272,7 +272,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8205c883453eead4f9c126c8982ffeaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Levels: []
+  Levels:
+  - {fileID: 1083063993235806, guid: 76dc5aa2db658ca4aa00f34e603008d0, type: 2}
+  - {fileID: 1698747092817734, guid: 1c31ba90b05c11143bc47e017d9d21a0, type: 2}
 --- !u!1 &1675141233 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: a26879b64b4f4c14399050e566001cdc, type: 3}
