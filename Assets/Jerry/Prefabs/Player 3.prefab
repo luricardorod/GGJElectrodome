@@ -772,6 +772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energy: 0
   isAlive: 0
+  onGround: 0
   number: 0
   lives: 0
   color: {r: 0, g: 0, b: 0, a: 0}
@@ -850,6 +851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointer: {fileID: 4142994355400616}
+  maxFlyTime: 3
 --- !u!114 &114971409294953066
 MonoBehaviour:
   m_ObjectHideFlags: 1

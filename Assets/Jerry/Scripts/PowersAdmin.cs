@@ -54,6 +54,10 @@ public class PowersAdmin : MonoBehaviour {
 
 	void Stun()
 	{
+		StunPower sp = Instantiate(powersPrefabs[(int)Powers.Stun], 
+									playerInfo.transform.position + playerInfo.currentPointerDir * 2, 
+									Quaternion.identity).GetComponent<StunPower>();
+		sp.Init (playerInfo.currentPointerDir);
 	}
 
 	void Chain()
