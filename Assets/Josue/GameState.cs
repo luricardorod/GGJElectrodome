@@ -53,6 +53,11 @@ public class GameState : MonoBehaviour
     }
     void Awake()
     {
+        colores[0] = Color.red;
+        colores[1] = Color.green;
+        colores[2] = Color.yellow;
+        colores[3] = Color.magenta;
+
         DontDestroyOnLoad(this);
         GlobalGameState = this;
         ///
