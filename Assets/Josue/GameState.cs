@@ -64,7 +64,7 @@ public class GameState : MonoBehaviour
         {
             m_PlayerPool[i] = Instantiate<GameObject>(m_PlayerPrefab[i]);
             //m_PlayerPool[i].GetComponent<PlayerLogic>().m_PlayerNumber = (PLAYER)i;
-            m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().Init(i,colores[i],30);
+            m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().Init(i, colores[i],30);
             //m_PlayerPool[i].gameObject.SetActive(false);
         }
 
@@ -143,7 +143,7 @@ public class GameState : MonoBehaviour
         {
             if(!m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().isAlive)
              {
-                 if (m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().lives>0)
+                 if (m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().lives > 0)
                  {
                      m_PlayerPool[index].transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = true;
                      m_PlayerPool[index].transform.position = Level.transform.GetChild(index).transform.position;

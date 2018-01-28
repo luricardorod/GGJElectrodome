@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 114233214792673840}
   - component: {fileID: 114935433536232058}
   - component: {fileID: 114322144777486538}
+  - component: {fileID: 114541030254610256}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -839,6 +840,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedObject: {fileID: 4843438423438286}
   offset: {x: 0, y: 4.5, z: 0}
+--- !u!114 &114541030254610256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1317810851052994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef31f33d472cafc42878d512a34527d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ACPlayerMov: {fileID: 0}
+  m_ACDash: {fileID: 8300000, guid: 67097c9575b99504481959e709575b88, type: 3}
+  m_ACShot: {fileID: 8300000, guid: acf7b4b1d293d164488531b96bcd21a4, type: 3}
+  m_ACBomb: {fileID: 8300000, guid: 7efe7b8ba79f66a4589a98926132c8ee, type: 3}
+  m_ACLaser: {fileID: 8300000, guid: 59fb1a56ab4158e4cae1fb1bf0f434fd, type: 3}
+  m_ACDamage: {fileID: 8300000, guid: 4ab5a0b7ab420f444b05ee3861850b3a, type: 3}
+  m_ACEnergyCharge: {fileID: 8300000, guid: c1741845f80b94c42b1d8a08480852c9, type: 3}
+  m_ACEnergyEmpty: {fileID: 8300000, guid: 921261d2fdd2f5a47a3df650a85e455f, type: 3}
+  m_ACBarrier: {fileID: 8300000, guid: 67097c9575b99504481959e709575b88, type: 3}
+  m_ACParry: {fileID: 8300000, guid: c1741845f80b94c42b1d8a08480852c9, type: 3}
 --- !u!114 &114935433536232058
 MonoBehaviour:
   m_ObjectHideFlags: 1
