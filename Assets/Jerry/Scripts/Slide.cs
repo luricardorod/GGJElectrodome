@@ -6,8 +6,6 @@ public class Slide : MonoBehaviour {
 
 	public float boostSpeed = 1.5f;
 	public float fLiveTime;
-	PlayerLogic pl;
-	float maxSpeed;
 	// Use this for initialization
 	void Start () {
 		
@@ -22,21 +20,18 @@ public class Slide : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		if (collider.tag == "Player") {
-			if (!pl) {
-				pl = collider.gameObject.GetComponentInParent<PlayerLogic> ();
-			}
-
-			maxSpeed = pl.fMaxSpeed;
-			pl.fMaxSpeed *= boostSpeed;
-			pl.lockDirection = true;
+		if (collider.tag == "PlayerBody") {
+			PlayerInfo playerInfo = collider.gameObject.GetComponentInParent<PlayerInfo> ();
+			playerInfo.Lock (PlayerInfo.Locks.MovementControl, GetInstanceID ());
+			playerInfo.LockSpeedBoost (2.5f, GetInstanceID ());
 		}
 	}
 
 	void OnTriggerExit(Collider collider) {
-		if (collider.tag == "Player") {
-			pl.fMaxSpeed = maxSpeed;
-			pl.lockDirection = false;
+		if (collider.tag == "PlayerBody") {
+			PlayerInfo playerInfo = collider.gameObject.GetComponentInParent<PlayerInfo> ();
+			playerInfo.Unlock (PlayerInfo.Locks.MovementControl, GetInstanceID ());
+			playerInfo.UnlockSpeedBoost (GetInstanceID ());
 		}
 	}
 }

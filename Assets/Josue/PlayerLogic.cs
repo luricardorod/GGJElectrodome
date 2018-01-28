@@ -180,15 +180,15 @@ public class PlayerLogic : MonoBehaviour
         }
     }
 
-    void CheckInput(PLAYER playerInput)
+    void CheckInput()
     {
         if (!lockDirection)
         {
             Vector3 RightStick;
 
-            RightStick.x = Input.GetAxis("RHorizontal" + (int)playerInput);
+            RightStick.x = Input.GetAxis("RHorizontal" + (int)m_PlayerNumber);
             RightStick.y = 0;
-            RightStick.z = Input.GetAxis("RVertical" + (int)playerInput);
+			RightStick.z = Input.GetAxis("RVertical" + (int)m_PlayerNumber);
 
             RightStick.Normalize();
 
@@ -199,9 +199,9 @@ public class PlayerLogic : MonoBehaviour
         }
 
         Vector3 LeftStick;
-        LeftStick.x = Input.GetAxis("LHorizontal" + (int)playerInput);
+		LeftStick.x = Input.GetAxis("LHorizontal" + (int)m_PlayerNumber);
         LeftStick.y = 0;
-        LeftStick.z = Input.GetAxis("LVertical" + (int)playerInput);
+		LeftStick.z = Input.GetAxis("LVertical" + (int)m_PlayerNumber);
 
         //Move the Player
         if (lockMovement)
@@ -217,7 +217,7 @@ public class PlayerLogic : MonoBehaviour
             currentDirection = LeftStick.normalized;
         }
 
-        CheckForPowerInput(playerInput);
+//        CheckForPowerInput();
     }
 
 
@@ -233,7 +233,7 @@ public class PlayerLogic : MonoBehaviour
                 BeingPushed = false;
             }
 
-            CheckInput(m_PlayerNumber);
+//            CheckInput(m_PlayerNumber);
             SetColor();
 
             if (GetGround() == null && Body.gameObject.GetComponent<Rigidbody>().useGravity)
@@ -328,13 +328,7 @@ public class PlayerLogic : MonoBehaviour
 
                 break;
             case POWER.OVERLORD:
-                OverlordPower op = Instantiate(PowerPrefabs[2], Body.position, Quaternion.identity).GetComponent<OverlordPower>();
-                op.SetPlayerLogic(this);
-                Quaternion q = new Quaternion();
-                q.SetLookRotation(Aim);
-                op.transform.rotation = q;
-                lockMovement = true;
-                lockDirection = true;
+                
                 break;
         }
 
@@ -390,4 +384,3 @@ public class PlayerLogic : MonoBehaviour
         return null;
     }
 }
-

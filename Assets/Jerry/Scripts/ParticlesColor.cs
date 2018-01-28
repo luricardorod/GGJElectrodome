@@ -9,7 +9,7 @@ public class ParticlesColor : MonoBehaviour {
     //Regular strenght 4-6
     //Animación 
 
-    PlayerLogic pm;
+    PlayerInfo playerInfo;
 	public float explosionDuration;
 	public Transform attachedObj;
 	public float maxEmissionRate = 10.0f;
@@ -31,7 +31,7 @@ public class ParticlesColor : MonoBehaviour {
 
 	void Start () {
 		ParticleSystem ps = GetComponent<ParticleSystem> ();
-		pm = attachedObj.GetComponentInParent<PlayerLogic> ();
+		playerInfo = attachedObj.GetComponentInParent<PlayerInfo> ();
 		emissionMod = ps.emission;
 		noiseMod = ps.noise;
 		shapeMod = ps.shape;
@@ -51,24 +51,24 @@ public class ParticlesColor : MonoBehaviour {
 
 	void Update() {
 		
-		if (pm.fEnergy == 0 && canExplode) {
+		if (playerInfo.energy <= 0.06f && canExplode) {
 			Discharge ();
 		}
 
 		GetComponent<ParticleSystem> ();
 		if (!discharge) {
-			if (pm.fEnergy > 0.0f) {
+			if (playerInfo.energy  > 0.06f) {
 				canExplode = true;
 			}
 
-			Color aLerped = Color.Lerp (colorAUncharged, colorACharged, pm.fEnergy);
-			Color bLerped = Color.Lerp (colorBUncharged, colorBCharged, pm.fEnergy);
+			Color aLerped = Color.Lerp (colorAUncharged, colorACharged, playerInfo.energy );
+			Color bLerped = Color.Lerp (colorBUncharged, colorBCharged, playerInfo.energy );
 
 			SetColor (GetComponent<ParticleSystem> (), aLerped, bLerped);
 			SetColor(transform.GetChild (0).GetComponent<ParticleSystem> (), aLerped, bLerped);
 		
-			float emissionFactor = pm.fEnergy > 0.75f ? 2.0f - (1.0f - pm.fEnergy) : 1.0f;
-			emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (pm.fEnergy * maxEmissionRate * emissionFactor); 
+			float emissionFactor = playerInfo.energy  > 0.75f ? 2.0f - (1.0f - playerInfo.energy ) : 1.0f;
+			emissionMod.rateOverTime = new ParticleSystem.MinMaxCurve (playerInfo.energy  * maxEmissionRate * emissionFactor); 
 		} else {
 			//Debug.Log ("Explosion");
 			dischargedTime += Time.deltaTime;

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4233315137918580}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpawnSlide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4856864293663788}
   - component: {fileID: 96748144345083302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,11 @@ GameObject:
   - component: {fileID: 135572446291331858}
   - component: {fileID: 23577992822612908}
   - component: {fileID: 54158733779681524}
-  m_Layer: 0
+  - component: {fileID: 114061372111253450}
+  - component: {fileID: 114285950403060738}
+  - component: {fileID: 114656725398055208}
+  - component: {fileID: 114937233020111640}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -72,7 +76,7 @@ GameObject:
   - component: {fileID: 199050636720719166}
   - component: {fileID: 114330474296131956}
   - component: {fileID: 114898511397075358}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +93,7 @@ GameObject:
   - component: {fileID: 4340649475717388}
   - component: {fileID: 198928337284133928}
   - component: {fileID: 199575676278932834}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SubEmitter0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +108,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4966887805901954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Electricity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +126,7 @@ GameObject:
   - component: {fileID: 33601683032696660}
   - component: {fileID: 23215654845555582}
   - component: {fileID: 95651087849693246}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JugadorBola
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,8 +141,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4190039223683762}
-  - component: {fileID: 114792869400396396}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: PlayerWrapper
   m_Icon: {fileID: 0}
@@ -154,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4506782832188526}
   - component: {fileID: 114344448805081826}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +173,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4194903682253900}
   - component: {fileID: 95040761235622624}
-  m_Layer: 0
+  - component: {fileID: 114928695774732414}
+  m_Layer: 8
   m_Name: JugadorCuerpo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +191,7 @@ GameObject:
   - component: {fileID: 4961907672061092}
   - component: {fileID: 33299310678958414}
   - component: {fileID: 23746538055928018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface33
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4666930051677802}
   - component: {fileID: 108943300853921380}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +224,7 @@ GameObject:
   - component: {fileID: 4167430335455100}
   - component: {fileID: 33313067348021266}
   - component: {fileID: 23615546327954572}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: polySurface32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +265,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576092012073162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.09}
+  m_LocalPosition: {x: 0, y: 1.53, z: -4.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4478176274867614}
@@ -743,6 +747,38 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114061372111253450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1135718105893280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d1d6999dd212f4983fe75e1e408ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powersPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 4656088570592658, guid: 9ae8b571ccea8a04a84a6d7f2433f78b, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 4739630543899488, guid: 7347306720a22da43aeae1b03735f1bf, type: 2}
+--- !u!114 &114285950403060738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1135718105893280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b269090b8190341a8ee8f005e3f987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointer: {fileID: 4506782832188526}
 --- !u!114 &114330474296131956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -769,43 +805,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedObject: {fileID: 4478176274867614}
   offset: {x: 0, y: 0, z: 0}
---- !u!114 &114792869400396396
+--- !u!114 &114656725398055208
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1576092012073162}
+  m_GameObject: {fileID: 1135718105893280}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 973e23db042fbc04aa038bdda258e75f, type: 3}
+  m_Script: {fileID: 11500000, guid: a71cfc5c9caf9f942a54a1a8388aa1af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerNumber: 0
-  TrailPrefab: {fileID: 1053964861402382}
-  Aim: {x: 0, y: 0, z: 0}
-  Pointer: {fileID: 4506782832188526}
-  Body: {fileID: 4478176274867614}
-  fVecinity: 5
-  BeingPushed: 0
-  fMaxPushTime: 1
-  fPushForce: 10
-  groundDistance: 0.1
-  PowerPrefabs:
-  - {fileID: 1831890623041538, guid: 55a5ac3ffebd25041818cb1e6bc00275, type: 2}
-  - {fileID: 1670613552957736, guid: 9ae8b571ccea8a04a84a6d7f2433f78b, type: 2}
-  - {fileID: 1428486299181386, guid: 7347306720a22da43aeae1b03735f1bf, type: 2}
-  fDashLength: 10
-  fEnergy: 0
-  fMaxSpeed: 30
-  fScaleEnergy: 0.4
-  fGainEnergy: 0.4
-  fOffsetMinEnergy: 1.1
-  fDelayTimeCharge: 3
-  fDelayLooseEnergy: 0.001
-  lockMovement: 0
-  lockDirection: 0
-  SpeedScale: 1
-  fMinReqMove: 0.01
 --- !u!114 &114898511397075358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -818,7 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionDuration: 1.5
-  attachedObj: {fileID: 4190039223683762}
+  attachedObj: {fileID: 4478176274867614}
   maxEmissionRate: 10
   colorAUncharged: {r: 0.07931041, g: 0.5, b: 0, a: 0}
   colorBUncharged: {r: 0, g: 0.3455882, b: 0.0023833476, a: 0}
@@ -826,6 +836,43 @@ MonoBehaviour:
   colorBCharged: {r: 0.27718958, g: 0.86764705, b: 0.1658737, a: 0}
   explodeA: {r: 0, g: 0.47210953, b: 0.5147059, a: 0}
   explodeB: {r: 0.33823532, g: 0, b: 0, a: 0}
+--- !u!114 &114928695774732414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1695894535668960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ec1c78a9ada6545bc479aa9cf95311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114937233020111640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1135718105893280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d839b3557d55339488a000c61ac6ea78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energy: 0
+  isAlive: 0
+  number: 0
+  lives: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
+  maxSpeed: 0
+  movSet: 0
+  currentMovementDir: {x: 0, y: 0, z: 0}
+  currentPointerDir: {x: 0, y: 0, z: 0}
+  minReqMoveForChargeEnergy: 0
+  offsetMinenergy: 1.1
+  scaleEnergy: 0.5
+  gainEnergy: 0.8
+  delayTimeCharge: 3
+  delayLoseEnergy: 0.001
 --- !u!135 &135572446291331858
 SphereCollider:
   m_ObjectHideFlags: 1
