@@ -53,5 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decalsPlaceableCount: 4
   placeRate: 0.5
-  decal: {fileID: 4439111466435536, guid: e5f4ce8bbd1faa94994f7c8e1bbf4258, type: 2}
+  decal: {fileID: 4413361322000702, guid: e5f4ce8bbd1faa94994f7c8e1bbf4258, type: 2}
   attachedObj: {fileID: 0}

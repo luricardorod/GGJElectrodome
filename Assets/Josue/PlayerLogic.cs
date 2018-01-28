@@ -110,27 +110,38 @@ public class PlayerLogic : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Stun/Slide" + (int)player) && fEnergy >= Level2Energy) {
+		if (Input.GetButtonDown("Dash/Parry" + (int)player) && fEnergy >= Level1Energy) {
+			fEnergy = Mathf.Max(fEnergy - Level1Energy, 0.0f);
+			LaunchPower(POWER.DASH);
+		}
+
+        if (Input.GetButtonDown("Stun/Chain" + (int)player) && fEnergy >= Level2Energy) {
             fEnergy = Mathf.Max(fEnergy - Level2Energy, 0.0f);
             if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) {
-				///////////////////////////////////////////////////
-				///////////////////////////////////////////////////
-				///////////////////////////////////////////////////
-				/// CAMBIAR A STUN
-				//////////////////////////////////////////////////
-				LaunchPower(POWER.SLIDE);
+				///////////////
+				/// CAMBIAR A CHAINED
+				LaunchPower(POWER.STUN);
+				////////////////
+				///
             }
             else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) {
-                LaunchPower(POWER.SLIDE);
+				LaunchPower(POWER.STUN);
             }
-        }
+        }      
 
-        if (Input.GetButtonDown("Dash/Parry" + (int)player) && fEnergy >= Level1Energy) {
-            fEnergy = Mathf.Max(fEnergy - Level1Energy, 0.0f);
-            LaunchPower(POWER.DASH);
-        }
+		if (Input.GetAxis ("Barrier/Slide" + (int)player) > 0.8f && fEnergy >= Level3Energy) {
+			fEnergy = Mathf.Max (fEnergy - Level3Energy, 0.0f);
+			if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) {
+				////////////////////////cambiar a barrer
+				/// ///////////////////////////////////////////
+				LaunchPower (POWER.SLIDE);
+			} else if (m_ActiveMoveset == MOVE_SET.DEFFENSIVE) {
+				LaunchPower (POWER.SLIDE);
+			}
 
-		if(Input.GetButtonDown("Bomb/Overlord" + (int)player) && fEnergy >= Level4Energy) {
+		}
+
+		if(Input.GetAxis("Bomb/Overlord" + (int)player) > 0.8f && fEnergy >= Level4Energy) {
 			fEnergy = Mathf.Max(fEnergy - Level4Energy, 0.0f);
 
 			if (m_ActiveMoveset == MOVE_SET.OFFENSIVE) {
@@ -235,7 +246,7 @@ public class PlayerLogic : MonoBehaviour
                 break;
 		case POWER.SLIDE:
 			SlidePower sp = Instantiate (PowerPrefabs [1], Vector3.zero, Quaternion.identity).GetComponent<SlidePower> ();
-			sp.attachedObj = transform.GetChild (0);
+			sp.Init (transform.GetChild (0));
 
 			break;
 			case POWER.OVERLORD:
