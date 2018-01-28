@@ -25,7 +25,8 @@ public class OverlordPower : MonoBehaviour {
 	void OnTriggerEnter(Collider col)
 	{
 		if (col.tag == "Player") {
-			Destroy (col.transform.parent.gameObject);
+            playerInfo.isAlive = false;
+			//Destroy (col.transform.parent.gameObject);
 		}
 	}
 

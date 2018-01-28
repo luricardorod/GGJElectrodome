@@ -64,7 +64,7 @@ public class GameState : MonoBehaviour
         {
             m_PlayerPool[i] = Instantiate<GameObject>(m_PlayerPrefab[i]);
             //m_PlayerPool[i].GetComponent<PlayerLogic>().m_PlayerNumber = (PLAYER)i;
-            m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().Init(i,colores[i],30);
+            m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().Init(i, colores[i],30);
             //m_PlayerPool[i].gameObject.SetActive(false);
         }
 
@@ -89,7 +89,7 @@ public class GameState : MonoBehaviour
        {
            randlevel = Random.Range(0, GetComponent<LevelLoader>().Levels.Count - 1);
        }
-LastLevel=randlevel;
+       LastLevel=randlevel;
        GetComponent<LevelLoader>().SetLevel(randlevel);
        Level = GameObject.FindGameObjectWithTag("Level");
        int spawnindex = 0;
@@ -102,13 +102,13 @@ LastLevel=randlevel;
            Player.transform.GetChild(0).GetComponent<InputManager>().enabled = false;
            ++spawnindex;
        }
-       Invoke("WaitToMove",3);
+       Invoke("WaitToMove", 3);
     }
 
     void WaitToMove()
     {
-      foreach (GameObject Player in m_PlayerPool)
-      {
+        foreach (GameObject Player in m_PlayerPool)
+        {
             Player.transform.GetChild(0).GetComponent<InputManager>().enabled = true;
         }
         m_State = GAME_STATE.PLAYING;
@@ -143,7 +143,7 @@ LastLevel=randlevel;
         {
             if(!m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().isAlive)
              {
-                 if (m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().lives>0)
+                 if (m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().lives > 0)
                  {
                      m_PlayerPool[index].transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = true;
                      m_PlayerPool[index].transform.position = Level.transform.GetChild(index).transform.position;

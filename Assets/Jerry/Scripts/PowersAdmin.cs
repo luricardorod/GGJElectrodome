@@ -43,7 +43,7 @@ public class PowersAdmin : MonoBehaviour {
 
     void Dash()
     {
-        Debug.Log("Dash");
+        GetComponent<AudioManager>().PlaySoundEffect(AudioManager.SOUND_EFFECT.DASH, 0.15f);
         gameObject.AddComponent<DashManager>();
         GetComponent<DashManager>().Dash(12);
     }
@@ -83,7 +83,8 @@ public class PowersAdmin : MonoBehaviour {
 
 	void Overlord()
 	{
-		OverlordPower op = Instantiate (powersPrefabs [(int)Powers.Overlord], 
+        GetComponent<AudioManager>().PlaySoundEffect(AudioManager.SOUND_EFFECT.LASER, 2.1f);
+        OverlordPower op = Instantiate (powersPrefabs [(int)Powers.Overlord], 
 										transform.position, 
 										Quaternion.identity).GetComponent<OverlordPower>();
 		op.Init (playerInfo);
