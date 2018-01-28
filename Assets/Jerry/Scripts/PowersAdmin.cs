@@ -43,7 +43,6 @@ public class PowersAdmin : MonoBehaviour {
 
     void Dash()
     {
-        GetComponent<AudioManager>().PlaySoundEffect(AudioManager.SOUND_EFFECT.DASH, 0.15f);
         gameObject.AddComponent<DashManager>();
         GetComponent<DashManager>().Dash(12);
     }
@@ -62,6 +61,10 @@ public class PowersAdmin : MonoBehaviour {
 
 	void Chain()
 	{
+		ChainPower cp = Instantiate(powersPrefabs[(int)Powers.Chain], 
+									playerInfo.transform.position + playerInfo.currentPointerDir * 2, 
+									Quaternion.identity).GetComponent<ChainPower>();
+		cp.Init (playerInfo.currentPointerDir, playerInfo.transform.position);
 	}
 
 	void Slide()
@@ -83,7 +86,6 @@ public class PowersAdmin : MonoBehaviour {
 
 	void Overlord()
 	{
-        GetComponent<AudioManager>().PlaySoundEffect(AudioManager.SOUND_EFFECT.LASER, 2.1f);
         OverlordPower op = Instantiate (powersPrefabs [(int)Powers.Overlord], 
 										transform.position, 
 										Quaternion.identity).GetComponent<OverlordPower>();
