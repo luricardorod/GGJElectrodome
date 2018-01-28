@@ -24,7 +24,14 @@ public class Intro : MonoBehaviour {
     {
         if (Timer > AnimationTime)
         {
+            Debug.Log("uuuuuuuuuuuuuuuuu");
+
             text.SetActive(true);
+            if (Input.anyKeyDown)
+            {
+                Debug.Log("dsfsdfs");
+                SceneManager.LoadScene(1);
+            }
         }
         else Timer += Time.deltaTime;
     }

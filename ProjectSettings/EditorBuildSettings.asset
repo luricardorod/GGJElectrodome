@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Lalo/Scenes/Menu_Scene.unity
-    guid: 052f58fd83b1db644a2ea92d58429565
+    path: ASsets/Intro/Scene/MenuAnim.unity
+    guid: 5fd06a8a5e2f42b47b8a3db0a360e2a4
   - enabled: 1
-    path: Assets/Lalo/Scenes/Game_Scene.unity
-    guid: 61f2490916457e0489783cbd6ca8de1b
+    path: ASsets/Integration/Scenes/map1.unity
+    guid: 9c4b85dbe8cf84140b7fe2108a608551
   - enabled: 1
-    path: Assets/Lalo/Scenes/Credits_Scene.unity
-    guid: 69ac126149baa034ab1c5a898af8910e
+    path: ASsets/Integration/Scenes/Players.unity
+    guid: 1f05b3c05c4079f42a5a5b0010324efd
