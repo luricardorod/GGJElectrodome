@@ -49,8 +49,7 @@ public class InputManager : MonoBehaviour {
 		leftStick.y = 0;
 		leftStick.z = Input.GetAxis("LVertical" + playerInfo.number);
 
-		playerMovement.MoveTo (leftStick);
-		
+		playerMovement.MoveTo (leftStick);		
 
 	}
 

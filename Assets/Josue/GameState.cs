@@ -36,13 +36,13 @@ public class GameState : MonoBehaviour
     public GAME_STATE m_State;
     private float fTimeToWait;
     public GameObject playerPrefab;
-    GameObject[] m_PlayerPool;
+    public GameObject[] m_PlayerPool;
     private GameObject Level;
     public uint[] m_PlayerScore;
     public bool[] m_PlayerIsAlive;
     public GameObject[] m_PlayerPrefab;
     uint m_StartingPlayers;
-    uint m_NumberOfPlayersAlive;
+    public uint m_NumberOfPlayersAlive;
 
     private void Start()
     {
@@ -65,7 +65,7 @@ public class GameState : MonoBehaviour
             m_PlayerPool[i] = Instantiate<GameObject>(m_PlayerPrefab[i]);
             //m_PlayerPool[i].GetComponent<PlayerLogic>().m_PlayerNumber = (PLAYER)i;
             m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().Init(i,colores[i],30);
-            m_PlayerPool[i].gameObject.SetActive(false);
+            //m_PlayerPool[i].gameObject.SetActive(false);
         }
 
         //TODO: remove
