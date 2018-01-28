@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	void OnCollisionEnter (Collision col) {
 		if (col.transform.tag == "Ground") {
-			transform.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezePositionY;
+			transform.GetComponent<Rigidbody> ().constraints |= RigidbodyConstraints.FreezePositionY;
 			playerInfo.onGround = true;
 		}
 	} 

@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 114117571332674422}
   - component: {fileID: 114302373579766208}
   - component: {fileID: 114204713821433368}
+  - component: {fileID: 114874777608882244}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -581,7 +582,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &95350728637406282
 Animator:
@@ -863,6 +864,28 @@ MonoBehaviour:
   colorBCharged: {r: 1, g: 0.7241379, b: 0, a: 0}
   explodeA: {r: 0, g: 0.47210953, b: 0.5147059, a: 0}
   explodeB: {r: 0.33823532, g: 0, b: 0, a: 0}
+--- !u!114 &114874777608882244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1972020125673526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef31f33d472cafc42878d512a34527d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEffect: []
+  m_ACPlayerMov: {fileID: 0}
+  m_ACDash: {fileID: 8300000, guid: 67097c9575b99504481959e709575b88, type: 3}
+  m_ACShot: {fileID: 8300000, guid: acf7b4b1d293d164488531b96bcd21a4, type: 3}
+  m_ACBomb: {fileID: 8300000, guid: 7efe7b8ba79f66a4589a98926132c8ee, type: 3}
+  m_ACLaser: {fileID: 8300000, guid: 59fb1a56ab4158e4cae1fb1bf0f434fd, type: 3}
+  m_ACDamage: {fileID: 8300000, guid: 4ab5a0b7ab420f444b05ee3861850b3a, type: 3}
+  m_ACEnergyCharge: {fileID: 8300000, guid: c1741845f80b94c42b1d8a08480852c9, type: 3}
+  m_ACEnergyEmpty: {fileID: 8300000, guid: 921261d2fdd2f5a47a3df650a85e455f, type: 3}
+  m_ACBarrier: {fileID: 8300000, guid: 67097c9575b99504481959e709575b88, type: 3}
+  m_ACParry: {fileID: 8300000, guid: c1741845f80b94c42b1d8a08480852c9, type: 3}
 --- !u!135 &135881136934618998
 SphereCollider:
   m_ObjectHideFlags: 1

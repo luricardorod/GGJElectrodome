@@ -15,12 +15,30 @@ public class ChargeAnimation : MonoBehaviour
     // The rays that will be activated.
     public Slider[] Rays;
 
-    public PlayerInfo playerInformation;
+    // Each palyer's power bar.
+    public Transform[] FillColor;
+    public Transform[] IconColor;
+    public Transform[] PlayerIcon;
+    public Transform[] BoltToSpawn;
+
+    // It's used to just instantiate the energy icon once.
+    private bool bFirstTime = true;
 
     // Use this for initialization
     void Start()
     {
-        //playerInformation = gameState.GetComponent<PlayerInfo>();
+        // We set the energy's color according to each player.
+        for (int i = 0; i < FillColor.Length; i++)
+        {
+            // The color that fills the bar.
+            FillColor[i].GetComponent<Image>().color = gameState.GetComponent<GameState>().m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().color;
+            // circle that moves across the bar.
+            IconColor[i].GetComponent<Image>().color = gameState.GetComponent<GameState>().m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().color;
+            // Big icon representing how many bars have been filled.
+            BoltToSpawn[i].GetComponent<Image>().color = gameState.GetComponent<GameState>().m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().color;
+            // Big icon representing each player's score.
+            PlayerIcon[i].GetComponent<Image>().color = gameState.GetComponent<GameState>().m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().color;
+        }
 
         // We initialize the energy counters for every player.
         for (int i = 0; i < iCurrentBar.Length; i++)
@@ -32,29 +50,35 @@ public class ChargeAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //
         uint uiPlayersAmount = gameState.GetComponent<GameState>().m_NumberOfPlayersAlive;
-
-        //Debug.Log(playerInformation.energy);
-        //Rays[0].value = playerInformation.energy;
 
         // Se aumenta cada barra dependiendo de la energia de cada mono.
         for (int i = 0; i < Rays.Length; i++)
         {
-            Debug.Log("Energy de player " + i + ": " + gameState.GetComponent<GameState>().m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().energy);
             Rays[i].value = gameState.GetComponent<GameState>().m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().energy;
         }
+    }
 
+    public void AddBar(int iPlayer)
+    {
+        Transform test = new GameObject().transform;
 
-        //// Go through all of the players from the pool.
-        //for (uint j = 0; j < uiPlayersAmount; j++)
-        //{
-        //    // We see if the energy of each player is greater than a given amount, times the amount of energy bars filled.
-        //    if (gameState.GetComponent<GameState>().m_PlayerPool[j].transform.GetChild(0).GetComponent<PlayerInfo>().energy > iEnergyAmountPerBlock * (iCurrentBar[j] + 1))
-        //    {
-        //        //TODO: aumentar el valor del slider y activar animaciones along the way.
-        //        iCurrentBar[j]++;
-
-        //    }
-        //}
+        if (Rays[iPlayer].value > 0.25f * (iCurrentBar[iPlayer] + 1))
+        {
+            iCurrentBar[iPlayer]++;
+            test = Instantiate(BoltToSpawn[iPlayer]);
+            test.parent = GetComponent<Canvas>().transform;
+            test.position = IconColor[iPlayer].position;
+            test.localScale = PlayerIcon[iPlayer].lossyScale / 2;
+            test.rotation = Quaternion.identity;
+        }
+        else if (Rays[iPlayer].value < 0.25f * iCurrentBar[iPlayer])
+        {
+            if (test != null)
+            {
+                Destroy(test.gameObject);
+            }
+        }
     }
 }

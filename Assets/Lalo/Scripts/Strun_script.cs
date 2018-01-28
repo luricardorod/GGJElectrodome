@@ -4,44 +4,39 @@ using UnityEngine;
 
 public class Strun_script : MonoBehaviour
 {
-    public float StunDuration;
-    public float Speed;
-    public Vector3 Direction;
-
+    public float stunDuration;
+    public float speed;
+	private Vector3 direction;
+	private PlayerInfo playerInfoTarget;
     // Use this for initialization
     void Start()
     {
-        Destroy(this, 10);
+		direction = Vector3.zero;
     }
+
+	void Init(Vector3 dir)
+	{
+		direction = dir;
+	}
 
     void Update()
     {
-        transform.Translate(Direction * Speed * Time.deltaTime);
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-        StartCoroutine(StunTime(other));
+		if (other.tag == "Player") {
+			playerInfoTarget = other.transform.GetComponent<PlayerInfo> ();
+			playerInfoTarget.Lock (PlayerInfo.Locks.Movement, GetInstanceID ());
+			//Invoke (freePlayer, stunDuration);
+
+		}
     }
 
-    // Stuns the player for a given time.
-    IEnumerator StunTime(Collider other)
-    {
-        PlayerLogic playerOther = other.GetComponentInParent<PlayerLogic>();
-
-        playerOther.Die();
-        Destroy(other.gameObject.transform.parent.gameObject);
-
-        // Store the player's speed.
-        float fOtherSpped = playerOther.fMaxSpeed;
-        // The other player is stopped.
-        playerOther.fMaxSpeed = 0;
-        // We wait for the stun to finish.
-        yield return new WaitForSeconds(StunDuration);
-        // We Make the enemy able to move again.
-        playerOther.fMaxSpeed = fOtherSpped;
-
-        Destroy(gameObject);
-    }
+	void freePlayer () {
+		playerInfoTarget.Unlock(PlayerInfo.Locks.Movement, GetInstanceID ());
+		Destroy(gameObject);
+	}
+		
 }

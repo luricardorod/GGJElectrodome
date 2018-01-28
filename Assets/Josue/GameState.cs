@@ -53,6 +53,11 @@ public class GameState : MonoBehaviour
     }
     void Awake()
     {
+        colores[0] = Color.red;
+        colores[1] = Color.green;
+        colores[2] = Color.yellow;
+        colores[3] = Color.magenta;
+
         DontDestroyOnLoad(this);
         GlobalGameState = this;
         ///
@@ -64,7 +69,7 @@ public class GameState : MonoBehaviour
         {
             m_PlayerPool[i] = Instantiate<GameObject>(m_PlayerPrefab[i]);
             //m_PlayerPool[i].GetComponent<PlayerLogic>().m_PlayerNumber = (PLAYER)i;
-            m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().Init(i,colores[i],30);
+            m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().Init(i, colores[i],30);
             //m_PlayerPool[i].gameObject.SetActive(false);
         }
 
@@ -81,8 +86,11 @@ public class GameState : MonoBehaviour
 
     public void InitRound()
     {
+
        m_NumberOfPlayersAlive = m_StartingPlayers;
        m_State = GAME_STATE.PRE_ROUND;
+       Camera.main.GetComponent<MusicManager>().PlayMusic(MusicManager.SONG.GAME);
+        Debug.Log("Playing Level Game Music");
        for (int i = 0; i < 4; ++i) m_PlayerIsAlive[i] = true;
        int randlevel = Random.Range(0, GetComponent<LevelLoader>().Levels.Count-1);
        while (randlevel == LastLevel)
@@ -134,6 +142,7 @@ public class GameState : MonoBehaviour
         else if (m_State == GAME_STATE.MATCH_OVER)
         {
             m_State = GAME_STATE.MENU;
+
         }
     }
 
@@ -143,7 +152,7 @@ public class GameState : MonoBehaviour
         {
             if(!m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().isAlive)
              {
-                 if (m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().lives>0)
+                 if (m_PlayerPool[index].transform.GetChild(0).GetComponent<PlayerInfo>().lives > 0)
                  {
                      m_PlayerPool[index].transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = true;
                      m_PlayerPool[index].transform.position = Level.transform.GetChild(index).transform.position;
@@ -168,14 +177,38 @@ public class GameState : MonoBehaviour
 
                     //Change the state to round over.
                     m_State = GAME_STATE.ROUND_OVER;
+                    
 
-                    return;
+                    CheckForMatchEnd();
                 }
             }
         }
     }
 
+    void CheckForMatchEnd()
+    {
+        foreach(int score in m_PlayerScore)
+        {
+            if(score>=5)
+            {
+                m_State = GAME_STATE.MATCH_OVER;
+                Camera.main.GetComponent<MusicManager>().PlayMusic(MusicManager.SONG.GAME);
+                Debug.Log("Playing Menu Game Music");
+                GameObject[] TrashLevel = GameObject.FindGameObjectsWithTag("Level");
+                foreach (GameObject Level in TrashLevel)
+                {
+                    Destroy(Level);
+                }
+                GameObject[] TrashCharacters = GameObject.FindGameObjectsWithTag("Player wrapper");
+                foreach (GameObject Character in TrashCharacters)
+                {
+                    Destroy(Character);
+                }
 
+            }
+        }
+        
+    }
     /// <summary>
     /// A function to call when a player gets killed. Receives the player killed.
     /// </summary>
