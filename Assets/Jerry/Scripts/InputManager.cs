@@ -60,6 +60,7 @@ public class InputManager : MonoBehaviour {
 		{
 			if(Input.GetButtonDown(powers[i]))
 			{
+                Debug.Log(i);
 				powersAdmin.ExcecutePower((PowersAdmin.Powers)(i + movSetOffest));
 			}
 
