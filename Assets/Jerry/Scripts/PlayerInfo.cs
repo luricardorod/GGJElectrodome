@@ -48,7 +48,7 @@ public class PlayerInfo : MonoBehaviour {
 	//public bool isAlive;
 	void Start()
 	{
-	
+        Init(0, Color.green, 30);
 	}
 
 	public void Init(int num, Color col, float speed) {
