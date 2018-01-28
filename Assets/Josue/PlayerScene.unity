@@ -108,6 +108,60 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &31791954
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4190039223683762, guid: 98f55a002354df64a94b40f7f780ce32, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190039223683762, guid: 98f55a002354df64a94b40f7f780ce32, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190039223683762, guid: 98f55a002354df64a94b40f7f780ce32, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 7.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190039223683762, guid: 98f55a002354df64a94b40f7f780ce32, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190039223683762, guid: 98f55a002354df64a94b40f7f780ce32, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.117030874
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190039223683762, guid: 98f55a002354df64a94b40f7f780ce32, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190039223683762, guid: 98f55a002354df64a94b40f7f780ce32, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9931283
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190039223683762, guid: 98f55a002354df64a94b40f7f780ce32, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114792869400396396, guid: 98f55a002354df64a94b40f7f780ce32,
+        type: 2}
+      propertyPath: PowerPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 1797200500486596, guid: 8e9c2303e4098254896969e1cae82a32,
+        type: 2}
+    - target: {fileID: 114792869400396396, guid: 98f55a002354df64a94b40f7f780ce32,
+        type: 2}
+      propertyPath: PowerPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1310517796440636, guid: e573aa4d3bfc35d4489f110c59be3366,
+        type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 98f55a002354df64a94b40f7f780ce32, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1429027022
 GameObject:
   m_ObjectHideFlags: 0
