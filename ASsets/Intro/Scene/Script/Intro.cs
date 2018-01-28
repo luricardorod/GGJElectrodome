@@ -5,23 +5,28 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Intro : MonoBehaviour {
-    public Animation anim;
-    private Animator animater;
+
+    public float AnimationTime;
+    public GameObject text;
 
     private float Timer;
+
+    private Animator animater;
+
     private void Start()
     {
         animater = GetComponent<Animator>();
         animater.Play("MenuAnim");
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-
+        if (Timer > AnimationTime)
+        {
+            text.SetActive(true);
+        }
+        else Timer += Time.deltaTime;
     }
 
-    public void MainMenu()
-    {
-        SceneManager.LoadScene("");   
-    }
 }
