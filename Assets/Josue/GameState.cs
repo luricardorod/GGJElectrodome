@@ -40,7 +40,7 @@ public class GameState : MonoBehaviour
     private GameObject Level;
     public uint[] m_PlayerScore;
     public bool[] m_PlayerIsAlive;
-
+    public GameObject[] m_PlayerPrefab;
     uint m_StartingPlayers;
     uint m_NumberOfPlayersAlive;
 
@@ -62,7 +62,7 @@ public class GameState : MonoBehaviour
         ///
         for (int i = 0; i < (int)PLAYER.PLAYER_MAX; ++i)
         {
-            m_PlayerPool[i] = Instantiate<GameObject>(playerPrefab);
+            m_PlayerPool[i] = Instantiate<GameObject>(m_PlayerPrefab[i]);
             //m_PlayerPool[i].GetComponent<PlayerLogic>().m_PlayerNumber = (PLAYER)i;
             m_PlayerPool[i].transform.GetChild(0).GetComponent<PlayerInfo>().Init(i,colores[i],30);
             m_PlayerPool[i].gameObject.SetActive(false);
