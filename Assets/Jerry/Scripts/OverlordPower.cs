@@ -21,4 +21,7 @@ public class OverlordPower : MonoBehaviour {
 		playerInfo.Lock (PlayerInfo.Locks.Pointing, gameObject.GetInstanceID());
 		Invoke ("DestroyMe", lifeTime);
 	}
+
+
+
 }

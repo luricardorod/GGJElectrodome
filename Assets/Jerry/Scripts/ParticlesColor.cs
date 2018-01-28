@@ -31,7 +31,7 @@ public class ParticlesColor : MonoBehaviour {
 
 	void Start () {
 		ParticleSystem ps = GetComponent<ParticleSystem> ();
-		playerInfo = attachedObj.GetComponentInParent<PlayerInfo> ();
+		playerInfo = attachedObj.GetComponent<PlayerInfo> ();
 		emissionMod = ps.emission;
 		noiseMod = ps.noise;
 		shapeMod = ps.shape;
