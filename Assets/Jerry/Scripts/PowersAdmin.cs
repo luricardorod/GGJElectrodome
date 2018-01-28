@@ -35,14 +35,17 @@ public class PowersAdmin : MonoBehaviour {
 		if (reducedEnergyLvl <= playerInfo.energy) {
 			playerInfo.energy -= reducedEnergyLvl;
 			string name = System.Enum.GetName (power.GetType (), power);
-			Invoke (name, 0);
+
+            Debug.Log(name);
+            Invoke (name, 0);
 		}
 	}
 
-	void Dash()
-	{
-		
-	}
+    void Dash()
+    {
+        gameObject.AddComponent<DashManager>();
+        GetComponent<DashManager>().Dash(12);
+    }
 
 	void Parry()
 	{
@@ -50,10 +53,18 @@ public class PowersAdmin : MonoBehaviour {
 
 	void Stun()
 	{
+		StunPower sp = Instantiate(powersPrefabs[(int)Powers.Stun], 
+									playerInfo.transform.position + playerInfo.currentPointerDir * 2, 
+									Quaternion.identity).GetComponent<StunPower>();
+		sp.Init (playerInfo.currentPointerDir);
 	}
 
 	void Chain()
 	{
+		ChainPower cp = Instantiate(powersPrefabs[(int)Powers.Chain], 
+									playerInfo.transform.position + playerInfo.currentPointerDir * 2, 
+									Quaternion.identity).GetComponent<ChainPower>();
+		cp.Init (playerInfo.currentPointerDir, playerInfo.transform.position);
 	}
 
 	void Slide()
@@ -75,9 +86,9 @@ public class PowersAdmin : MonoBehaviour {
 
 	void Overlord()
 	{
-		OverlordPower op = Instantiate (powersPrefabs [(int)Powers.Overlord], 
+        OverlordPower op = Instantiate (powersPrefabs [(int)Powers.Overlord], 
 										transform.position, 
 										Quaternion.identity).GetComponent<OverlordPower>();
-		op.Init (playerInfo);
+		op.Init (playerInfo, transform.gameObject);
 	}
 }

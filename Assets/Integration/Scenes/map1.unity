@@ -304,6 +304,7 @@ MonoBehaviour:
   m_State: 0
   playerPrefab: {fileID: 1576092012073162, guid: b3d018d7ba32d0a40b0b5f4a73d0be38,
     type: 2}
+  m_PlayerPool: []
   m_PlayerScore: 
   m_PlayerIsAlive: 
   m_PlayerPrefab:
@@ -311,6 +312,7 @@ MonoBehaviour:
   - {fileID: 1576092012073162, guid: b3d018d7ba32d0a40b0b5f4a73d0be38, type: 2}
   - {fileID: 1424866347296480, guid: 68fab8cea11e517479f574c32f9996f2, type: 2}
   - {fileID: 1465957809919202, guid: b529fec89696a1e4c995cd09394e590a, type: 2}
+  m_NumberOfPlayersAlive: 0
 --- !u!114 &1934367002
 MonoBehaviour:
   m_ObjectHideFlags: 0

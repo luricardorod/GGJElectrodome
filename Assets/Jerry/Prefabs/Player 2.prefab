@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 114641398928232014}
   - component: {fileID: 114626640527795108}
   - component: {fileID: 114840785790445804}
+  - component: {fileID: 114409486040222074}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -772,6 +773,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedObject: {fileID: 4615674358132342}
   offset: {x: 0, y: 4.5, z: 0}
+--- !u!114 &114409486040222074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330629805363550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef31f33d472cafc42878d512a34527d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ACPlayerMov: {fileID: 0}
+  m_ACDash: {fileID: 8300000, guid: 67097c9575b99504481959e709575b88, type: 3}
+  m_ACShot: {fileID: 8300000, guid: acf7b4b1d293d164488531b96bcd21a4, type: 3}
+  m_ACBomb: {fileID: 8300000, guid: 7efe7b8ba79f66a4589a98926132c8ee, type: 3}
+  m_ACLaser: {fileID: 8300000, guid: 59fb1a56ab4158e4cae1fb1bf0f434fd, type: 3}
+  m_ACDamage: {fileID: 8300000, guid: 4ab5a0b7ab420f444b05ee3861850b3a, type: 3}
+  m_ACEnergyCharge: {fileID: 8300000, guid: c1741845f80b94c42b1d8a08480852c9, type: 3}
+  m_ACEnergyEmpty: {fileID: 8300000, guid: 921261d2fdd2f5a47a3df650a85e455f, type: 3}
+  m_ACBarrier: {fileID: 8300000, guid: 67097c9575b99504481959e709575b88, type: 3}
+  m_ACParry: {fileID: 8300000, guid: c1741845f80b94c42b1d8a08480852c9, type: 3}
 --- !u!114 &114609981018514492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -856,11 +878,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powersPrefabs:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4967223437904134, guid: 50655182acab30743a27b6bf28fceb02, type: 2}
+  - {fileID: 4656088570592658, guid: 9ae8b571ccea8a04a84a6d7f2433f78b, type: 2}
   - {fileID: 4656088570592658, guid: 9ae8b571ccea8a04a84a6d7f2433f78b, type: 2}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4850527471111336, guid: e7a59f6a1cc87094c97efa76ee7098dd, type: 2}
   - {fileID: 0}
   - {fileID: 4739630543899488, guid: 7347306720a22da43aeae1b03735f1bf, type: 2}
 --- !u!135 &135581816973617222

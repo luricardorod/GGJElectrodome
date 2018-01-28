@@ -50,6 +50,10 @@ public class PlayerInfo : MonoBehaviour {
 	void Start()
 	{
 		//Init (0, Color.black, 30);
+<<<<<<< HEAD
+=======
+		Init(number, color, 30.0f);
+>>>>>>> e167033a5daf4f94819dcfb7999cf548d0a94565
 	}
 
 	public void Init(int num, Color col, float speed) {
