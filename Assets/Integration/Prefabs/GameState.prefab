@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1493522718877284}
+  m_IsPrefabParent: 1
+--- !u!1 &1493522718877284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4926093703030870}
+  - component: {fileID: 114685310288143540}
+  - component: {fileID: 114441489019129100}
+  - component: {fileID: 114686467776177728}
+  m_Layer: 0
+  m_Name: GameState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4926093703030870
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493522718877284}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 78.6742, y: 1.9795572, z: 52.371624}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114441489019129100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493522718877284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8205c883453eead4f9c126c8982ffeaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Levels:
+  - {fileID: 1083063993235806, guid: 76dc5aa2db658ca4aa00f34e603008d0, type: 2}
+  - {fileID: 1698747092817734, guid: 1c31ba90b05c11143bc47e017d9d21a0, type: 2}
+  - {fileID: 1213236778160304, guid: 30610957f08507a4da38f0393b19098c, type: 2}
+  - {fileID: 1311506885916126, guid: 12bbdd401e7b8a449b7bd65fb2225ca5, type: 2}
+  - {fileID: 1232187332192526, guid: 078f218ad33ebb944ba15fdbda5a2a3b, type: 2}
+--- !u!114 &114685310288143540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493522718877284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f68e09b77171414f883e5d5f5d38590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoaderLevel: {fileID: 114441489019129100}
+  m_State: 0
+  playerPrefab: {fileID: 1390378346398438, guid: 1eedaa27d66982b4a8386fdee1cc2276,
+    type: 2}
+  PlayerPool: []
+  PlayerArtBody:
+  - {fileID: 1755811729775362, guid: d27cc54fddb59804389a6f8fb1529232, type: 2}
+  - {fileID: 1590328430861700, guid: 151a803310cfdd443a2da3dbb89275e0, type: 2}
+  - {fileID: 1362021092233140, guid: a2ad1057d8a9b384bae7f62afd8ac486, type: 2}
+  - {fileID: 1706380691908448, guid: 2958caf4b1534174d98cd5cba9b58b94, type: 2}
+  PlayerArtPointer:
+  - {fileID: 1824873702880330, guid: d532b9675cef757488c282faa4103692, type: 2}
+  - {fileID: 1635396864260038, guid: 0015a6a7b8344ae48a0101755d733f2c, type: 2}
+  - {fileID: 1317097283241650, guid: 15b10945ad8fa3340ab66eee299e3833, type: 2}
+  - {fileID: 1948497679250058, guid: 959d89b896588a1489d759a067e5be7b, type: 2}
+  PlayerArtEffects:
+  - {fileID: 1007751340518816, guid: ff9d4dd70803f9a4b9e0f74a17df538e, type: 2}
+  - {fileID: 1808605844855210, guid: 0acf12842c78dcc4e8b08a953bb76087, type: 2}
+  - {fileID: 1534423939279196, guid: 18af569e269b87d4eb285fd43a72f7f2, type: 2}
+  - {fileID: 1989823458918972, guid: 8dd0460c9301d754bbfad14123069023, type: 2}
+  PlayerArtExplosion:
+  - {fileID: 1426033939166214, guid: eda721e45a11c564b98fd3e763515792, type: 2}
+  - {fileID: 1766866414973316, guid: 25d6df0f88e29ff419ad68f08ee84042, type: 2}
+  - {fileID: 1148541834750374, guid: b1d99532a785caa42ae542ede13b3207, type: 2}
+  - {fileID: 1991197519703828, guid: 0b9d9415129e7274ba2f87be6b1f0ce8, type: 2}
+  MaxScore: 5
+  PlayerScore: 
+  MaxPlayerSpeed: 30
+  m_NumberOfPlayersAlive: 0
+  PlayerIsAlive: 
+--- !u!114 &114686467776177728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493522718877284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef31f33d472cafc42878d512a34527d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundEffect: []
+  m_ACPlayerMov: {fileID: 0}
+  m_ACDash: {fileID: 8300000, guid: 67097c9575b99504481959e709575b88, type: 3}
+  m_ACShot: {fileID: 0}
+  m_ACBomb: {fileID: 0}
+  m_ACLaser: {fileID: 0}
+  m_ACDamage: {fileID: 0}
+  m_ACEnergyCharge: {fileID: 0}
+  m_ACEnergyEmpty: {fileID: 0}
+  m_ACBarrier: {fileID: 0}
+  m_ACParry: {fileID: 0}

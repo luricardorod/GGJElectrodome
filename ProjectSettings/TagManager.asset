@@ -8,6 +8,7 @@ TagManager:
   - Level
   - Ground
   - Shoot
+  - Barrier
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - 
   - 
   - PlayerLayer
-  - 
-  - 
+  - FloorLayer
+  - PowerLayer
   - 
   - 
   - 

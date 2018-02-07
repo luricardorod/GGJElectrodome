@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f5db55691178ab14490e6d089f8413a7
+timeCreated: 1517282053
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 64
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Hi.
+  fontNames:
+  - Hi.
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
