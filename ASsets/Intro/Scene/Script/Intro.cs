@@ -22,11 +22,8 @@ public class Intro : MonoBehaviour {
     {
         if (Timer > AnimationTime)
         {
-            Debug.Log("uuuuuuuuuuuuuuuuu");
-
             if (Input.anyKeyDown)
             {
-                Debug.Log("dsfsdfs");
                 SceneManager.LoadScene(1);
             }
         }

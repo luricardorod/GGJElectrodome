@@ -21,11 +21,12 @@ public class PlayButton : MonoBehaviour {
         {
             if (Input.anyKeyDown)
             {
-                Debug.Log("dsfsdfs");
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene("MatchStart");
             }
+
             text.SetActive(true);
         }
+
         else Timer += Time.deltaTime;
 	}
 }
